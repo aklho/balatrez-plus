@@ -70,10 +70,14 @@ SMODS.Booster{
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.choose, card.ability.extra, colours = {G.C.SECONDARY_SET.Enhanced} } }
     end,
-    kind = "balatrezboosters",
+    kind = "balatrezboosters",      
 
     create_card = function(self, card)
-        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho"}
+        local chooserarity = SMODS.poll_rarity("Joker", "eee")
+        while chooserarity == "mucho_upperrarity" do
+            chooserarity = SMODS.poll_rarity("Joker", "eee")
+        end
+        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho", rarity = chooserarity}
     end,
 
     ease_background_colour = function(self)
@@ -109,7 +113,11 @@ SMODS.Booster{
     kind = "balatrezboosters",
 
     create_card = function(self, card)
-        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho"}
+        local chooserarity = SMODS.poll_rarity("Joker", "eee")
+        while chooserarity == "mucho_upperrarity" do
+            chooserarity = SMODS.poll_rarity("Joker", "eee")
+        end
+        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho", rarity = chooserarity}
     end,
 
     ease_background_colour = function(self)
@@ -144,7 +152,11 @@ SMODS.Booster{
     kind = "balatrezboosters",
 
     create_card = function(self, card)
-        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho"}
+        local chooserarity = SMODS.poll_rarity("Joker", "eee")
+        while chooserarity == "mucho_upperrarity" do
+            chooserarity = SMODS.poll_rarity("Joker", "eee")
+        end
+        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho", rarity = chooserarity}
     end,
 
     ease_background_colour = function(self)
@@ -179,7 +191,11 @@ SMODS.Booster{
     kind = "balatrezboosters",
 
     create_card = function(self, card)
-        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho"}
+        local chooserarity = SMODS.poll_rarity("Joker")
+        while chooserarity == "mucho_upperrarity" do
+            chooserarity = SMODS.poll_rarity("Joker")
+        end
+        return {set = "BalatrezAddition", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "mucho", rarity = chooserarity}
     end,
 
     ease_background_colour = function(self)
@@ -433,6 +449,11 @@ SMODS.Booster{
     end,
     kind = "vanillalikeboosters",
 
+    d_colour = function(self)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.BLACK)
+        ease_background_colour({ new_colour = G.C.BLACK, special_colour = G.C.BLACK, contrast = 0 })
+    end,
+
     create_card = function(self, card, i)
         local legkey = "j.reserved_parking"
         if i == 1 then
@@ -454,10 +475,6 @@ SMODS.Booster{
     end,
 
 
-    d_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.BLACK)
-        ease_background_colour({ new_colour = G.C.BLACK, special_colour = G.C.BLACK, contrast = 0 })
-    end,
 }
 
 SMODS.Booster{

@@ -82,3 +82,26 @@ SMODS.Keybind{
 		end
     end,
 }
+
+-- code taken from Bunco, thanks!
+function disable_extras()
+    if G.GAME then G.GAME.ExtraMucho = false end
+end
+
+disable_extras()
+
+function enable_extras()
+    if G.GAME then G.GAME.ExtraMucho = true end
+end
+
+leaves_in_pool = function()
+    if G.GAME and G.GAME.ExtraMucho then return true end
+    local spectrum_played = false
+    return spectrum_played
+end
+
+troubadours_in_pool = function()
+    if G.GAME and G.GAME.ExtraMucho then return true end
+    local spectrum_played = false
+    return spectrum_played
+end

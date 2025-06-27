@@ -13,6 +13,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = "atlas3",
+    path = "atlas3.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
     key = "chicotatlas",
     path = "chicot.png",
     px = 71,
@@ -24,11 +31,6 @@ SMODS.Atlas {
     path = "canio.png",
     px = 71,
     py = 95
-}
-
-SMODS.ObjectType{
-    key = "BalatrezAddition",
-    default = "joker_ultrarrealista"
 }
 
 SMODS.Rarity{
@@ -50,6 +52,24 @@ SMODS.Rarity{
     loc_txt = { name = "Unobtainable" },
     badge_colour = HEX("A3A3A3"),
     default_weight = 0
+}
+
+SMODS.ObjectType{
+    key = "BalatrezAddition",
+    default = "j_jolly",
+	cards = {},
+	inject = function(self)
+		SMODS.ObjectType.inject(self)
+		-- insert base game food jokers
+	end,
+    rarities = {
+        {key = 'Common', rate = 0.3},
+        {key = 'Uncommon', rate = 0.75},
+        {key = 'Rare', rate = 0.95},
+        {key = 'mucho_rarerthanrare', rate = 0.99},
+        {key = 'mucho_upperrarity', rate = 0.9995},
+        {key = 'mucho_unobtainable', rate = 1}
+    },
 }
 
 SMODS.Joker{
@@ -201,7 +221,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = true,
     calc_dollar_bonus = function(self, card)
-        return math.random(card.ability.extra.minimumpossible,card.ability.extra.maximumpossible)
+        return pseudorandom("tragaperras", card.ability.extra.minimumpossible, card.ability.extra.maximumpossible)
     end,
 }
 
@@ -236,7 +256,7 @@ SMODS.Joker{
             if card.ability.extra.currentquip > 6 then
                 card.ability.extra.currentquip = 1
             end
-        card.ability.extra.currentchips = math.random(card.ability.extra.minimumpossible, card.ability.extra.maximumpossible)
+        card.ability.extra.currentchips = pseudorandom("lamar_tiberi", card.ability.extra.minimumpossible, card.ability.extra.maximumpossible)
         return {
             chips = card.ability.extra.currentchips,
             message = card.ability.extra.quips[card.ability.extra.currentquip]
@@ -271,7 +291,7 @@ SMODS.Joker{
 		if context.joker_main then
 			-- Tells the joker what to do. In this case, it pulls the value of mult from the config, and tells the joker to use that variable as the "mult_mod".
 			return {
-				Xmult_mod = math.random(card.ability.extra.minXmult, card.ability.extra.maxXmult)/1000,
+				Xmult_mod = pseudorandom("falso_chicot", card.ability.extra.minXmult, card.ability.extra.maxXmult)/1000,
 				-- This is a localize function. Localize looks through the localization files, and translates it. It ensures your mod is able to be translated. I've left it out in most cases for clarity reasons, but this one is required, because it has a variable.
 				-- This specifically looks in the localization table for the 'variable' category, specifically under 'v_dictionary' in 'localization/en-us.lua', and searches that table for 'a_mult', which is short for add mult.
 				-- In the localization file, a_mult = "+#1#". Like with loc_vars, the vars in this message variable replace the #1#.
@@ -427,11 +447,11 @@ SMODS.Joker{
         if context.individual and context.cardarea == G.play then
             if pseudorandom("chips") < G.GAME.probabilities.normal / card.ability.extra.secondprob then
 
-                card.ability.extra.current_upgrade = math.random(1, 4)
+                card.ability.extra.current_upgrade = pseudorandom("quandaletiberi",1, 4)
 
                 if card.ability.extra.current_upgrade == 1 then -- add chips to the card!
                     context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
-                    context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + math.random(5)
+                    context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + pseudorandom("lamar_tiberichips", 1, 5)
                     return {
                         extra = { message = '¡+ fichas!', colour = G.C.CHIPS },
                         card = card
@@ -439,7 +459,7 @@ SMODS.Joker{
 
                 elseif card.ability.extra.current_upgrade == 2 then -- add +mult to the card!
                     context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
-                    context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + math.random(5)
+                    context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + pseudorandom("lamar_tiberimult", 1, 5)
                     return {
                         extra = { message = '¡+ múltiple!', colour = G.C.MULT },
                         card = card
@@ -447,7 +467,7 @@ SMODS.Joker{
 
                 elseif card.ability.extra.current_upgrade == 3 then -- add xmult to the card!
                     context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 1
-                    context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + ((math.random(500,1500) / 1000))
+                    context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + (pseudorandom("lamar_tiberixchips",500,1500) / 1000)
                     return {
                         extra = { message = '¡x múltiple!', colour = G.C.MULT },
                         card = card
@@ -455,7 +475,7 @@ SMODS.Joker{
 
                 elseif card.ability.extra.current_upgrade == 4 then -- add xchips to the card!
                     context.other_card.ability.perma_x_chips = context.other_card.ability.perma_x_chips or 1
-                    context.other_card.ability.perma_x_chips = context.other_card.ability.perma_x_chips + ((math.random(500,1500) / 1000))
+                    context.other_card.ability.perma_x_chips = context.other_card.ability.perma_x_chips + (pseudorandom("lamar_tiberixmult",500,1500) / 1000)
                     return {
                         extra = { message = '¡x fichas!', colour = G.C.CHIPS },
                         card = card
@@ -464,7 +484,7 @@ SMODS.Joker{
             end
 		end
         if context.end_of_round and context.cardarea == G.jokers then
-            card.ability.extra.secondprob = math.random(16, 64)
+            card.ability.extra.secondprob = pseudorandom("lamar_tiberiprob",16, 64)
         end
 	end
 }
@@ -567,9 +587,9 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chips = math.random(0,10),
+                chips = pseudorandom("salebalatrito",0,10),
                 message = card.ability.extra.msg,
-                play_sound('mucho_salebalatritosound', math.random(1500,4000)/2000, 1)
+                play_sound('mucho_salebalatritosound', pseudorandom("salebalatritopitch",1500,4000)/2000, 1)
             }
         end
     end
@@ -720,7 +740,7 @@ SMODS.Joker {
     pools = {["BalatrezAddition"] = true},
 	calculate = function(self, card, context)
 		if context.joker_main then
-            card.ability.extra.currentvideo = math.random(1,5)
+            card.ability.extra.currentvideo = pseudorandom("mobilegameadsvideo",1,5)
             if card.ability.extra.currentvideo == 1 then
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok1","Please watch this video in order to finance the scored hand.", 15),
@@ -808,7 +828,7 @@ SMODS.Joker {
             end
             if card.ability.extra.handsremaining == card.ability.extra.every then
 
-                card.ability.extra.currentvideo = math.random(1,6)
+                card.ability.extra.currentvideo = pseudorandom("mobilegameads2video",1,6)
 
                 if card.ability.extra.currentvideo == 1 then
                     G.FUNCS.overlay_menu{
@@ -916,12 +936,12 @@ SMODS.Joker{
         
 
         if context.starting_shop then
-            G.GAME.round_resets.reroll_cost = math.random(-5,15)
+            G.GAME.round_resets.reroll_cost = pseudorandom("heavysimpsonstart",-5,15)
             G.GAME.shop.joker_max = card.ability.extra.oldshopsize + 1
         end
 
         if context.reroll_shop then
-            G.GAME.round_resets.reroll_cost = math.random(-5,15)
+            G.GAME.round_resets.reroll_cost = pseudorandom("heavysimpsonreroll",-5,15)
         end
     end,
 }
@@ -1038,7 +1058,7 @@ SMODS.Joker{
                     message = card.ability.extra.xmsg
                 }
             else
-                local whatshallwedo = math.random(1, 7)
+                local whatshallwedo = pseudorandom("thechuds",1, 7)
                 if whatshallwedo == 1 then
                     G.FUNCS.overlay_menu{
                             definition = Create_UIBox_custom_video1("chud",'Taihen mōshiwakegozaimasen ga, XMult ga mitsukarimasendeshita. Kawarini kono bideo o goran kudasai.', 8),
@@ -1078,7 +1098,7 @@ SMODS.Joker{
                         message = "Muryō de `negatibutarottokādo' purezento! Chadoraifufōebā!"
                     }
                 elseif whatshallwedo == 7 and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    local postnegativechance = math.random(1, 3)
+                    local postnegativechance = pseudorandom("thechudsnegative",1, 3)
                     if postnegativechance == 1 then
                         SMODS.add_card {
                             set = "Joker",
@@ -1187,13 +1207,13 @@ SMODS.Joker{
     config = { extra = {msg = 'Sale balatrito?', random_effect = 4}},
 
     calculate = function(self, card, context)
-        card.ability.extra.random_effect = math.random(1, 19)
+        card.ability.extra.random_effect = pseudorandom("salebalatrito2effect",1, 19)
         if card.ability.extra.random_effect <= 6 then
             if context.joker_main then
                 return {
-                    chips = math.random(0,50),
+                    chips = pseudorandom("salebalatrito2chips",0,50),
                     message = card.ability.extra.msg,
-                    play_sound('mucho_salebalatritosound', math.random(1500,4000)/2000, 1)
+                    play_sound('mucho_salebalatritosound', pseudorandom("salebalatrito2pitch",1500,4000)/2000, 1)
                 }
             end
 
@@ -1376,7 +1396,7 @@ SMODS.Joker{
     key = "bigassjoker",
     loc_txt = {
         name = "Gargantuan Joker",
-        text = {"{X:mult, C:white}X#1#{}{} {C:mult}Mult{}",
+        text = {"{X:mult, V:4}X#1#{}{} {C:mult}Mult{}",
                 "if played hand contains a {V:1}Pair",
                 "This Joker takes up {V:2}#2#{} {V:1}Joker slots{}",
                 "{s:0.5,V:3}(by creating an unsellable Dummy Joker){}"}
@@ -1451,7 +1471,7 @@ SMODS.Joker {
         text = {
             "Grants {X:mult,V:3}X#1#{} {C:mult}Mult{}",
             'Calculations are based on a {V:2}complicated formula{}',
-            "{s:0.5,V:1}The formula: ((((1/300th of current blind requirement / amount of cards in deck) * (current round * (1 + amount of vouchers used)) - (amount of jokers owned * amount of consumables owned)) / (current money owned * current probabilities)) * (amount of hands left + (amount of discards left / 2)) - 2{}"
+            "{s:0.5,V:1}The formula: ((((1/300th of current blind requirement / amount of cards in deck) * (current round * (1 + amount of vouchers used)) - (amount of jokers owned * amount of consumables owned)) / (current money owned * current probabilities)) * (amount of hands left + (amount of discards left / 2)) - 0.9{}"
         }
     },
     config = { extra = { xmult = 1 } },
@@ -1479,12 +1499,12 @@ SMODS.Joker {
     perishable_compat = false,
     update = function(self, card, dt)
         if next(SMODS.find_card("j_mucho_ps3")) and G.GAME.blind.chips ~= nil and #G.playing_cards ~= nil and G.GAME.round ~= nil and #G.GAME.used_vouchers ~= nil and #G.jokers.cards ~= nil and #G.consumeables.cards ~= nil and G.GAME.dollars ~= nil and G.GAME.probabilities.normal ~= nil and G.GAME.current_round.hands_left ~= nil and G.GAME.current_round.discards_left ~= nil then
-            card.ability.extra.xmult = ((((G.GAME.blind.chips / 300) / #G.playing_cards) * (G.GAME.round * (1 + #G.GAME.used_vouchers)) - (#G.jokers.cards * #G.consumeables.cards)) / (G.GAME.dollars * G.GAME.probabilities.normal)) * (G.GAME.current_round.hands_left + (G.GAME.current_round.discards_left / 2)) - 2 
+            card.ability.extra.xmult = ((((G.GAME.blind.chips / 300) / #G.playing_cards) * (G.GAME.round * (1 + #G.GAME.used_vouchers)) - (#G.jokers.cards * #G.consumeables.cards)) / (G.GAME.dollars * G.GAME.probabilities.normal)) * (G.GAME.current_round.hands_left + (G.GAME.current_round.discards_left / 2)) - 0.9
         end
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            card.ability.extra.xmult = ((((G.GAME.blind.chips / 300) / #G.playing_cards) * (G.GAME.round * (1 + #G.GAME.used_vouchers)) - (#G.jokers.cards * #G.consumeables.cards)) / (G.GAME.dollars * G.GAME.probabilities.normal)) * (G.GAME.current_round.hands_left + (G.GAME.current_round.discards_left / 2)) - 2 
+            card.ability.extra.xmult = ((((G.GAME.blind.chips / 300) / #G.playing_cards) * (G.GAME.round * (1 + #G.GAME.used_vouchers)) - (#G.jokers.cards * #G.consumeables.cards)) / (G.GAME.dollars * G.GAME.probabilities.normal)) * (G.GAME.current_round.hands_left + (G.GAME.current_round.discards_left / 2)) - 0.9
             if card.ability.extra.xmult < 0 then
                 return {
                     Xmult_mod = 0,
@@ -1495,6 +1515,407 @@ SMODS.Joker {
                     Xmult_mod = card.ability.extra.xmult,
                     message = "Grand Theft Auto V successfully launched!"
                 }
+            end
+        end
+    end
+}
+
+SMODS.Joker{ --Bluff Time, created with JokerForge (wanted to try it out)
+    name = "Bluff Time",
+    key = "blufftime",
+    config = {
+        extra = {
+            mult = 2,
+            chips = 7
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Bluff Time',
+        ['text'] = {
+            [1] = 'Creates a wild {C:attention}7{} and a wild {C:attention}2{}',
+            [2] = 'upon {C:attention}rerolling the shop{}',
+            [3] = 'Scored {C:attention}7{}s give {C:blue}7{} {C:blue}Chips{}',
+            [4] = 'Scored {C:attention}2{}s give {C:red}2{} {C:red}Mult{}'
+        }
+    },
+    cost = 4,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'atlas3',
+    pos = {x = 0, y = 1},
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+
+    calculate = function(self, card, context)
+        -- When shop is rerolled
+        if context.reroll_shop and not context.blueprint then
+            -- Add a 7 card
+            local card_front_7 = pseudorandom_element({G.P_CARDS.S_7, G.P_CARDS.H_7, G.P_CARDS.D_7, G.P_CARDS.C_7}, pseudoseed('add_card_suit'))
+            local new_card_7 = create_playing_card({
+                front = card_front_7,
+                center = G.P_CENTERS.m_wild
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card_7:start_materialize()
+                    G.play:emplace(new_card_7)
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    return true
+                end
+            }))
+            draw_card(G.play, G.deck, 90, 'up')
+            if SMODS and SMODS.calculate_context then
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card_7 } })
+            end
+
+            -- Add a 2 card
+            local card_front_2 = pseudorandom_element({G.P_CARDS.S_2, G.P_CARDS.H_2, G.P_CARDS.D_2, G.P_CARDS.C_2}, pseudoseed('add_card_suit'))
+            local new_card_2 = create_playing_card({
+                front = card_front_2,
+                center = G.P_CENTERS.m_wild
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card_2:start_materialize()
+                    G.play:emplace(new_card_2)
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    return true
+                end
+            }))
+            draw_card(G.play, G.deck, 90, 'up')
+            if SMODS and SMODS.calculate_context then
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card_2 } })
+            end
+
+            return {
+                message = "Seven Deuce!"
+            }
+        end
+        -- Individual card scoring
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if context.other_card:get_id() == 2 then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            elseif context.other_card:get_id() == 7 then
+                return {
+                    chips = card.ability.extra.chips
+                }
+            end
+        end
+    end
+}
+
+
+SMODS.Joker{ --You Will Never Want To Take This Joker Ever, made with JokerForge purely to fill up a joker slot (for collection)
+    name = "You Will Never Want To Take This Joker Ever",
+    key = "youwillneverwanttotakethisjokerever",
+    config = {
+        extra = {
+            odds = 2048,
+            odds2 = 2,
+            jokerneeded = 4,
+            maxcards = 20
+        }
+    },
+    loc_txt = {
+        ['name'] = 'You Will Never Want To Take This Joker Ever',
+        ['text'] = {
+            [1] = 'Has a{C:green} #1# in #2#{} chance to create',
+            [2] = 'a {C:spectral}Black Hole{} {C:attention}Spectral{} card',
+            [3] = 'Copies a {C:attention}random consumable{} and has',
+            [4] = 'a {C:green}#1# in #3#{} chance to {C:hearts}self destruct{}',
+            [5] = '{C:spades}if{} you currently own {C:attention}#4# Jokers{},',
+            [6] = '{C:spades}if{} your total deck has {C:attention}less than #5#',
+            [7] = 'cards{} and {C:spades}if{} you have {C:attention}more than #4#',
+            [8] = '{}{C:inactive}stone cards{} in your{C:attention} total deck.{}'
+        }
+    },
+    pos = {
+        x = 1,
+        y = 1
+    },
+    cost = 4,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'atlas3',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {G.GAME.probabilities.normal, card.ability.extra.odds, card.ability.extra.odds2, card.ability.extra.jokerneeded, card.ability.extra.maxcards}}
+    end,
+
+    calculate = function(self, card, context)
+        -- When shop is rerolled
+        if context.reroll_shop and not context.blueprint then
+                if pseudorandom('effect_0_create_spectral_card') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                return {
+                    func = function()local created_spectral = true
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local spectral_card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, 'c_black_hole')
+                        spectral_card:set_edition("e_negative", true)
+                        spectral_card:add_to_deck()
+                        G.consumeables:emplace(spectral_card)
+                        return true
+                    end
+                }))
+                    if created_spectral then
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+                    end
+                    return true
+                end
+                }
+            end
+        end
+        -- At the end of the round
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            if (#G.jokers.cards == card.ability.extra.jokerneeded and #G.playing_cards < card.ability.extra.maxcards and (function()
+    local count = 0
+    for _, playing_card in pairs(G.playing_cards or {}) do
+        if SMODS.get_enhancements(playing_card)["m_stone"] == true then
+            count = count + 1
+        end
+    end
+    return count > card.ability.extra.jokerneeded
+end)()) then
+                if pseudorandom('effect_0_copy_consumable') < G.GAME.probabilities.normal / G.GAME.probabilities.normal then
+                return {
+                    func = function()
+            local target_cards = {}
+            for i, consumable in ipairs(G.consumeables.cards) do
+                table.insert(target_cards, consumable)
+            end
+            if #target_cards > 0  then
+                local card_to_copy = pseudorandom_element(target_cards, pseudoseed('copy_consumable'))
+                
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local copied_card = copy_card(card_to_copy)
+                        copied_card:set_edition("e_negative", true)
+                        copied_card:add_to_deck()
+                        G.consumeables:emplace(copied_card)
+                        
+                        return true
+                    end
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Copied Consumable!", colour = G.C.GREEN})
+                if pseudorandom('dissolve') < G.GAME.probabilities.normal / card.ability.extra.odds2 then
+                    card:start_dissolve()
+                end
+            end
+                    return true
+                end
+                }
+            end
+            end
+        end
+    end
+}
+
+
+
+
+
+
+SMODS.Joker {
+    key = "oopsall1s",
+    loc_txt = {
+        name = "Oops! All 1s",
+        text = {
+            "Halves all {C:attention}listed {C:green,E:1}probabilities",
+            "{C:inactive}(ex: {C:green}1 in 3 {C:inactive}-> {C:green}0.5 in 3{C:inactive})"
+        }
+    },
+    blueprint_compat = false,
+    rarity = 2,
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    pools = {["BalatrezAddition"] = true}, 
+    atlas = "atlas3",
+    pos = { x = 0, y = 0 },
+    add_to_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v / 2
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v * 2
+        end
+    end,
+}
+
+SMODS.Joker {
+    key = "oopsall12s",
+    loc_txt = {
+        name = "Oops! All 12s..?",
+        text = {
+            "Quadruples all {C:attention}listed {C:green,E:1}probabilities",
+            "{C:inactive}(ex: {C:green}1 in 3 {C:inactive}-> {C:green}4 in 3{C:inactive})"
+        }
+    },
+    blueprint_compat = false,
+    rarity = 3,
+    cost = 9,
+    unlocked = true,
+    discovered = true,
+    pools = {["BalatrezAddition"] = true}, 
+    atlas = "atlas3",
+    pos = { x = 1, y = 0 },
+    add_to_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v * 4
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v / 4
+        end
+    end,
+}
+
+SMODS.Joker {
+    key = "oopsall?s",
+    loc_txt = {
+        name = "Oops! All blank",
+        text = {
+            "All {C:attention}listed{C:green,E:1} probabilities",
+            "Have a {C:green}#1# in #2#{} chance of being {C:attention}permanently doubled",
+            "after each {C:attention}hand played"
+        }
+    },
+    config = { extra = { odds = 128 } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+            }
+        } end,
+    blueprint_compat = false,
+    rarity = 'mucho_rarerthanrare',
+    cost = 13,
+    unlocked = true,
+    discovered = true,
+    pools = {["BalatrezAddition"] = true}, 
+    atlas = "atlas3",
+    pos = { x = 2, y = 0 },
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if pseudorandom("upgradeprob") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                for k, v in pairs(G.GAME.probabilities) do
+                G.GAME.probabilities[k] = v * 2
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "oopsallgone",
+    loc_txt = {
+        name = "Oops! All gone",
+        text = {
+            "All {C:attention}listed {C:green,E:1}probabilities{} are set to {C:attention}zero{}",
+            "{C:inactive}(ex: {C:green}1 in 3 {C:inactive}-> {C:green}0 in 3{C:inactive})"
+        }
+    },
+    blueprint_compat = false,
+    rarity = 3,
+    cost = 12,
+    unlocked = true,
+    discovered = true,
+    pools = {["BalatrezAddition"] = true}, 
+    atlas = "atlas3",
+    pos = { x = 3, y = 0 },
+    config = {extra = {old_prob = 0 }},
+
+    add_to_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            card.ability.extra.old_prob = G.GAME.probabilities[k]
+            G.GAME.probabilities[k] = 0
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = card.ability.extra.old_prob
+        end
+    end,
+}
+
+SMODS.Joker {
+    key = "oopsd100",
+    loc_txt = {
+        name = "Oops! The humble D100",
+        text = {
+            "All {C:attention}listed {C:green,E:1}probabilities{} are multiplied by",
+            "a {C:attention}random number{} between #1# and #2#",
+            "Number {C:attention}changes after every discard",
+            "{C:inactive}(Currently: {X:green,C:white}X#3#{C:inactive})"
+        }
+    },
+    blueprint_compat = false,
+    rarity = 3,
+    cost = 12,
+    unlocked = true,
+    discovered = true,
+    pools = {["BalatrezAddition"] = true}, 
+    atlas = "atlas3",
+    pos = { x = 4, y = 0 },
+    config = {extra = {min = 0, max = 5, current = 1}},
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.min,
+                card.ability.extra.max,
+                card.ability.extra.current,
+                colours = {
+                    G.C.WHITE
+                }
+            }
+        } end,
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.current = 1
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v * card.ability.extra.current
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v / card.ability.extra.current
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.pre_discard then
+            for k, v in pairs(G.GAME.probabilities) do
+                G.GAME.probabilities[k] = v / card.ability.extra.current
+            end
+            card.ability.extra.current = pseudorandom("oopsd100",card.ability.extra.min*100, card.ability.extra.max*100) / 100
+            for k, v in pairs(G.GAME.probabilities) do
+                G.GAME.probabilities[k] = v * card.ability.extra.current
             end
         end
     end
@@ -1515,7 +1936,7 @@ SMODS.Joker {
     pools = {["BalatrezAddition"] = true}, 
     cost = 6,
     blueprint_compat = true,
-    config = {extra = {remaining_uses = 2, odds = 1000}},
+    config = {extra = {remaining_uses = 2, odds = 1250}},
     loc_vars = function(self, info_queue, card)
         if card.area and card.area == G.jokers then
             local other_joker
@@ -1539,8 +1960,8 @@ SMODS.Joker {
                 }
             }
             return { vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds
+                G.GAME.probabilities.normal or 1,
+                card.ability.extra.odds or 1200
             }, main_end = main_end }
         end
     end,
@@ -1552,7 +1973,7 @@ SMODS.Joker {
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i + 1] end
             end
-            card.ability.extra.remaining_uses = math.random(1, card.ability.extra.odds)
+            card.ability.extra.remaining_uses = pseudorandom("ttbprint", card.ability.extra.odds)
             return SMODS.blueprint_effect(card, other_joker, context)
         end
     end
@@ -1647,8 +2068,8 @@ SMODS.Joker {
                 }
             }
             return { vars = {
-                card.ability.extra.retriggersneeded,
-                card.ability.extra.retriggers,
+                card.ability.extra.retriggersneeded or 15,
+                card.ability.extra.retriggers or 0,
             }, 
             main_end = main_end 
         }
@@ -1725,17 +2146,19 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.ending_shop and G.consumeables.cards[1] then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'j_mucho_perkeoprint')
-                    local copied_card = copy_card(card_to_copy)
-                    copied_card:set_edition("e_negative", true)
-                    copied_card:add_to_deck()
-                    G.consumeables:emplace(copied_card)
-                    return true
+            if pseudorandom('copy?') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'j_mucho_perkeoprint')
+                        local copied_card = copy_card(card_to_copy)
+                        copied_card:set_edition("e_negative", true)
+                        copied_card:add_to_deck()
+                        G.consumeables:emplace(copied_card)
+                        return true
+                    end
+                }))
+                return { message = localize('k_duplicated_ex') }
                 end
-            }))
-        return { message = localize('k_duplicated_ex') }
         end
         local other_joker = nil
         for i = 1, #G.jokers.cards do
@@ -1744,6 +2167,84 @@ SMODS.Joker {
         return SMODS.blueprint_effect(card, other_joker, context)
     end,
 }
+
+SMODS.Atlas{
+    key = "asblueprint",
+    path = "allseeingblueprint.png",
+    px = 355,
+    py = 475
+}
+
+
+SMODS.Joker {
+    key = "allseeingblueprint",
+    loc_txt = {
+        name = "The all-seeing Blueprint",
+        text = {"Copies ability of a random {C:attention}Joker{}",
+                'Has a {C:green}#1# in #2#{} chance to gain',
+                'a "{C:purple}Rarer than Rare{}" tag at the {C:attention}end of the round',
+                "Has a {C:green}#1# in #3#{} chance to lose {C:money}#4#${} per hand played"}
+
+    },
+    unlocked = true,
+    blueprint_compat = true,
+    rarity = 3,
+    cost = 10,
+    config = { extra = { tagodds = 6, moneyodds = 3, moneylost = 20}},
+    atlas = "asblueprint",
+    pos = { x = 0, y = 0 }, soul_pos = { x = 1, y = 0 },
+    loc_vars = function(self, info_queue, card)
+        if card.area and card.area == G.jokers then
+            local compatible = G.jokers.cards[1] and G.jokers.cards[1] ~= card and
+                G.jokers.cards[1].config.center.blueprint_compat
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+            return { vars = {
+            G.GAME.probabilities.normal,
+            card.ability.extra.tagodds,
+            card.ability.extra.moneyodds,
+            card.ability.extra.moneylost, colours = {HEX("a83283")}}, main_end = main_end }
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.cardarea == G.jokers then
+            if pseudorandom("tagroll") < G.GAME.probabilities.normal / card.ability.extra.tagodds then
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        add_tag(Tag('tag_mucho_rarerthanraretag'))
+                        play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                        play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                        return true
+                    end)
+                }))
+            end
+        end
+        if context.joker_main then
+            if pseudorandom("tagroll") < G.GAME.probabilities.normal / card.ability.extra.moneyodds then
+                return {dollars = -card.ability.extra.moneylost}
+            end
+        end
+        local ret = SMODS.blueprint_effect(card, G.jokers.cards[pseudorandom("asblueprint",1, #G.jokers.cards)], context)
+        if ret then
+            ret.colour = G.C.RED
+        end
+        return ret
+    end
+}
+
 
 
 

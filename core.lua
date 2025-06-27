@@ -18,4 +18,5 @@ assert(SMODS.load_file("src/editions.lua"))()
 assert(SMODS.load_file("src/videos.lua"))()
 assert(SMODS.load_file("src/suits.lua"))()
 assert(SMODS.load_file("src/pokerhands.lua"))()
--- assert(SMODS.load_file("src/backs.lua"))()r
+assert(SMODS.load_file("src/backs.lua"))()
+assert(SMODS.load_file("src/tags.lua"))()

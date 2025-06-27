@@ -28,6 +28,13 @@ SMODS.Atlas {
 }
 
  -- ! Code borrowed from Unstable mod, thanks!
+
+function setPoolSuitFlagEnable(suit, isEnable)
+	if not G.GAME or G.GAME.pool_flags[suit] == isEnable then return end
+	
+	G.GAME.pool_flags[suit] = isEnable
+end
+
 function setPoolRankFlagEnable(rank, isEnable)
 	if not G.GAME or G.GAME.pool_flags[rank] == isEnable then return end
 	
@@ -36,6 +43,10 @@ end
 
 function getPoolRankFlagEnable(rank)
 	return (G.GAME and G.GAME.pool_flags[rank] or false)
+end
+
+function getPoolSuitFlagEnable(suit)
+	return (G.GAME and G.GAME.pool_flags[suit] or false)
 end
 
 --Shared pool rank checking function
@@ -72,13 +83,17 @@ SMODS.Rank {
     },
     shorthand = "T",
     suit_map = {mucho_leaves = 0, Hearts = 1, Clubs = 2, Diamonds = 3, Spades = 4},
-    -- in_pool = unstb_rankCheck,
-    --[[ update = function(self, card, dt)
+    in_pool = function(self, args)
+        if args and args.initial_deck then
+            return false
+        end
+    return troubadours_in_pool()
+    end,
+    update = function(self, card, dt)
         if CheckifRank(15) == true then
             SMODS.Rank:take_ownership("10", { next = {"mucho_Troubadour"} }, true)
         end
     end
-]]--
 }
 -- TODO: activate the 10->T only if there actually are troubadours in the deck (kinda works? very wanky)
 
@@ -99,7 +114,12 @@ SMODS.Suit {
         singular = "Leaf",
         plural = "Leaves"
     },
-    -- in_pool = unstb_rankCheck
+    in_pool = function(self, args)
+        if args and args.initial_deck then
+            return false
+        end
+    return leaves_in_pool()
+    end
     
 }
 

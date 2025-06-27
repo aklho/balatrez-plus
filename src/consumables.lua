@@ -23,6 +23,48 @@ SMODS.Sound{
 MostazaCounter = 1
 
 SMODS.Consumable{
+    key = 'employment',
+    set = "Tarot",
+    loc_txt = {
+        name = "Employment",
+        text = {
+            "Gain {V:3}3${} per Joker owned",
+            "{V:1}(Currently: {V:3}a certain amount of money (do the math yourself){}{V:1}){}"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        card.ability.extra.totalmoney = card.ability.extra.moneygained * #G.jokers.cards
+        return {
+            
+            vars = {
+                card.ability.extra.moneygained,
+                card.ability.extra.totalmoney,
+                colours = {
+                    G.C.UI.TEXT_INACTIVE,
+                    G.C.FILTER,
+                    G.C.MONEY
+                }
+            }
+        } end,
+    atlas = 'atlas_con', pos = {x = 1, y = 0},
+    cost = 3,
+    unlocked = true,
+    discovered = false,
+    config = { extra = { moneygained = 3, totalmoney = 0 }},
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        play_sound('mucho_semployment', math.random(1500,2100)/2000, 1)
+        ease_dollars(card.ability.extra.totalmoney, true)
+    end
+
+}
+
+MostazaPCounter = 2
+
+SMODS.Consumable{
     key = 'mostaza',
     set = "Tarot",
     loc_vars = function(self, info_queue, card)
@@ -60,7 +102,50 @@ SMODS.Consumable{
 
 }
 
-MostazaPCounter = 2
+
+
+
+
+SMODS.Consumable{
+    key = 'balatrobalatrez',
+    set = "Tarot",
+    loc_txt = {
+        name = "Balatro Balatrez",
+        text = {
+            "Creates a random {C:green}Uncommon {}Balatrez+ {C:attention}Joker",
+            "{C:inactive}(Must have room){}"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+        } end,
+    atlas = 'atlas_con', pos = {x = 0, y = 1},
+    cost = 3,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { }},
+    can_use = function(self, card)
+        return #G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers
+    end,
+
+    use = function(self, card, area, copier)
+        local value = 2
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('timpani')
+                local card = create_card("BalatrezAddition", G.jokers, nil, value, nil, nil, nil, "mucho_balatrobalatrez")
+				card:add_to_deck()
+                G.jokers:emplace(card)
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        delay(0.6)
+    end,
+
+}
 
 SMODS.Consumable{
     key = 'mostazapremium',
@@ -102,42 +187,52 @@ SMODS.Consumable{
 }
 
 SMODS.Consumable{
-    key = 'employment',
-    set = "Tarot",
+    key = 'familiabalatrez',
+    set = "Spectral",
     loc_txt = {
-        name = "Employment",
+        name = "Familia Balatrez",
         text = {
-            "Gain {V:3}3${} per Joker owned",
-            "{V:1}(Currently: {V:3}a certain amount of money (do the math yourself){}{V:1}){}"
+            "Creates a random {C:red}Rare {}or",
+            "higher Balatrez+ {C:attention}Joker",
+            "{C:inactive}(Must have room){}"
         }
     },
     loc_vars = function(self, info_queue, card)
-        card.ability.extra.totalmoney = card.ability.extra.moneygained * #G.jokers.cards
         return {
-            
-            vars = {
-                card.ability.extra.moneygained,
-                card.ability.extra.totalmoney,
-                colours = {
-                    G.C.UI.TEXT_INACTIVE,
-                    G.C.FILTER,
-                    G.C.MONEY
-                }
-            }
         } end,
-    atlas = 'atlas_con', pos = {x = 1, y = 0},
-    cost = 0,
+    atlas = 'atlas_con', pos = {x = 1, y = 1},
+    cost = 6,
     unlocked = true,
-    discovered = false,
-    config = { extra = { moneygained = 3, totalmoney = 0 }},
+    discovered = true,
+    config = { extra = { }},
     can_use = function(self, card)
-        return true
+        return #G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers
     end,
 
     use = function(self, card, area, copier)
-        play_sound('mucho_semployment', math.random(1500,2100)/2000, 1)
-        ease_dollars(card.ability.extra.totalmoney, true)
-    end
+        local raritych = pseudorandom("raritycheck", 1, 20)
+        local value = nil
+        if raritych < 14 then
+            value = 3
+        elseif raritych > 13 and raritych < 20 then
+            value = "mucho_rarerthanrare"
+        elseif raritych == 20 then
+            value = "mucho_upperrarity"
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('timpani')
+                local card = create_card("BalatrezAddition", G.jokers, nil, value, nil, nil, nil, "mucho_balatrobalatrez")
+				card:add_to_deck()
+                G.jokers:emplace(card)
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        delay(0.6)
+    end,
 
 }
 

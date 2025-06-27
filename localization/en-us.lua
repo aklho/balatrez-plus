@@ -49,6 +49,18 @@ return {
                 name = 'Ultra-realistic joker',
                 text = {
                     '{C:mult}+5{} Mult',
+                    "Sou o palhaço mais realista do jogo.",
+                    'Possuo poderes que ninguém mais possui.',
+                    'Sou o sol e a lua ao mesmo tempo, pois sou o portador do destino e da fortuna.',
+                    'Você será punido se ousar me ignorar.',
+                    'Comprar-me é a sua única maneira de obter a misericórdia da minha ira.',
+                    'Escolha com sabedoria, mortal, pois esta é uma questão de vida ou morte para você.'
+                }
+            },
+            j_mucho_joker_ultrarrealistatranslated = {
+                name = 'joker ultrarrealista',
+                text = {
+                    '{C:mult}+5{} Mult',
                     "I'm the most realistic joker in the game.",
                     'I possess powers that no one else possesses.',
                     'I am the sun and the moon at the same time, for I am the bearer of fate and fortune.',

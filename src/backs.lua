@@ -5,60 +5,99 @@ SMODS.Atlas {
     py = 95
 }
 
-SMODS.Back{ -- Lowkey Deck
-	key = "fivesuitdeck", 
-    loc_txt = {
-        name = "Five-Suit Deck",
-        text = {
-            "Deck starts with a fifth suit and",
-            "an additional card rank"
-        }
-    },
-    atlas = 'mucho_deck',
-	pos = {x = 0, y = 0},
-	
-	unlocked = true,
+SMODS.Back{
+    key = "xxl",
+	loc_txt = {
+		name = "Five-Suit Deck",
+		text = {"Start run with {C:attention}a fifth suit{} and",
+				"{C:attention}an additional rank{}"}
 
-    config = {},
-    loc_vars = function(self)
-        return {vars = {}}
-    end,
-
-    apply = function(self)
-		
-		--Enable all the pool flags
-		setPoolRankFlagEnable('mucho_Troubadour', true);
-	
-		--Notice: used card_key version and not standard key
-		local added_rank = {'mucho_Troubadour'}
-				
-		local all_suit = {}
-		
-		for k, v in pairs(SMODS.Suits) do
-			--If has in_pool, check in_pool
-			if type(v) == 'table' and type(v.in_pool) == 'function' and v.in_pool then
-				if v:in_pool({initial_deck = true}) then
-					all_suit[#all_suit+1] = v.card_key
+	},
+    pos = {x = 0, y = 0},
+    apply = function()
+		enable_extras()
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local cards_to_copy = {}
+                for k, v in ipairs(G.deck.cards) do
+                    cards_to_copy[#cards_to_copy+1] = v
+                end
+                for k, v in ipairs(cards_to_copy) do
+					print(v:get_id())
+					if v.base.suit == 'Clubs' then
+						v:change_suit('mucho_leaves')
+					end
+					if v.base.suit == 'mucho_leaves' then
+						G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+						local _card = copy_card(v)
+						_card:add_to_deck()
+						if _card.base.suit == 'mucho_leaves' then
+							_card:change_suit('Clubs')
+						end
+						-- TODO: implement the troubadours (these fucks again)
+						G.deck.config.card_limit = G.deck.config.card_limit + 1
+						table.insert(G.playing_cards, _card)
+						G.deck:emplace(_card)
+					end
+                end
+				for k, v in ipairs(G.deck.cards) do -- change jacks in troubs
+					if v:get_id() == 11 then
+						assert(SMODS.change_base(v, nil, "mucho_Troubadour"))
+					end
 				end
-			else --Otherwise, added by default
-				all_suit[#all_suit+1] = v.card_key
-			end
-			
-		end
-		
-		--print(inspect(all_suit))
-		
-		local extra_cards = {}
-		
-		for i=1, #all_suit do
-			for j=1, #added_rank do
-				extra_cards[#extra_cards+1] = {s = all_suit[i], r = added_rank[j]}
-			end
-		end
-		
-		G.GAME.starting_params.extra_cards = extra_cards
-		
-		
+				for k, v in ipairs(G.deck.cards) do -- recreate jacks
+					if v:get_id() == 15 then
+						G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+						local _card = copy_card(v)
+						_card:add_to_deck()
+						assert(SMODS.change_base(v, nil, "Jack"))
+						G.deck.config.card_limit = G.deck.config.card_limit + 1
+						table.insert(G.playing_cards, _card)
+						G.deck:emplace(_card)
+					end
+				end
+            return true
+        end}))
     end,
+    atlas = "mucho_deck"
+}
 
+SMODS.Back{
+    name = "Fifty-two Red Seal Polychrome Steel Kings of Spades",
+    key = "52rspsk",
+	atlas = "mucho_deck",
+    pos = {x = 1, y = 0},
+    config = {polyglass = true},
+    loc_txt = {
+        name = "Fifty-two {C:red, T:Red}Red Seal {C:attention, T:e_polychrome}Polychrome {V:1, T:m_steel}Steel{} Kings of {V:2}Spades",
+        text ={
+            "Start run with",
+            "fifty-two {C:red, T:Red}Red Seal {C:attention, T:e_polychrome}Polychrome {V:1, T:m_steel}Steel{} Kings of {V:2}Spades"
+        },
+    },
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				colours = {
+					HEX('999999'),
+					G.C.SUITS.Spades
+				}
+			}
+		}
+	end,
+    apply = function()
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for i = #G.playing_cards, 1, -1 do
+					assert(SMODS.change_base(G.playing_cards[i], "Spades", "King"))
+                    G.playing_cards[i]:set_ability(G.P_CENTERS.m_steel)
+					G.playing_cards[i]:set_seal("Red")
+                    G.playing_cards[i]:set_edition({
+                        polychrome = true
+                    }, true, true)
+                end
+                return true
+            end
+        }))
+    end
 }
