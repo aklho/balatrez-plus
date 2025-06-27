@@ -1,8 +1,8 @@
 SMODS.Atlas {
     key = "tagatlas",
     path = "tagatlas.png",
-    px = 32,
-    py = 32
+    px = 34,
+    py = 34
 }
 
 SMODS.Tag {

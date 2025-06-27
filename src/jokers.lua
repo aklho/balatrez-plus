@@ -66,7 +66,7 @@ SMODS.ObjectType{
         {key = 'Common', rate = 0.3},
         {key = 'Uncommon', rate = 0.75},
         {key = 'Rare', rate = 0.95},
-        {key = 'mucho_rarerthanrare', rate = 0.99},
+        {key = 'mucho_rarerthanrare', rate = 0.978},
         {key = 'mucho_upperrarity', rate = 0.9995},
         {key = 'mucho_unobtainable', rate = 1}
     },
