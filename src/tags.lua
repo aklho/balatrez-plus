@@ -25,7 +25,7 @@ SMODS.Tag {
             }
         } end,
     config = {prob2 = 2},
-    min_ante = 0,
+    min_ante = 1,
     atlas = "tagatlas", pos = {x=0, y=0},
     apply = function(self, tag, context)
         if pseudorandom("rarerthanraretag") < G.GAME.probabilities.normal / self.config.prob2 and context.type == 'store_joker_create' then
@@ -83,9 +83,6 @@ SMODS.Tag{
         end
     end,
     atlas = "tagatlas",
-    in_pool = function(self, args)
-        return G.ExtraMucho
-    end
 }
 
 SMODS.Tag{
@@ -118,9 +115,6 @@ SMODS.Tag{
         end
     end,
     atlas = "tagatlas",
-    in_pool = function(self, args)
-        return G.ExtraMucho
-    end
 }
 
 SMODS.Tag{
@@ -153,9 +147,6 @@ SMODS.Tag{
         end
     end,
     atlas = "tagatlas",
-    in_pool = function(self, args)
-        return G.ExtraMucho
-    end
 }
 
 SMODS.Tag{
@@ -168,7 +159,7 @@ SMODS.Tag{
         }
     },
     pos = {x = 4, y = 0},
-    min_ante = 2,
+    min_ante = 3,
     apply = function(self, tag, context)
         if context.type == 'new_blind_choice' then
             local lock = tag.ID

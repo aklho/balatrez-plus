@@ -19,6 +19,7 @@ SMODS.Atlas {
     py = 95
 }
 
+
 SMODS.Atlas {
     key = "chicotatlas",
     path = "chicot.png",
@@ -31,6 +32,13 @@ SMODS.Atlas {
     path = "canio.png",
     px = 71,
     py = 95
+}
+
+SMODS.Atlas {
+    key = "coreatlas",
+    path = "coreatlas.png",
+    px = 230,
+    py = 305
 }
 
 SMODS.Rarity{
@@ -54,6 +62,7 @@ SMODS.Rarity{
     default_weight = 0
 }
 
+
 SMODS.ObjectType{
     key = "BalatrezAddition",
     default = "j_jolly",
@@ -68,7 +77,7 @@ SMODS.ObjectType{
         {key = 'Rare', rate = 0.95},
         {key = 'mucho_rarerthanrare', rate = 0.978},
         {key = 'mucho_upperrarity', rate = 0.9995},
-        {key = 'mucho_unobtainable', rate = 1}
+        {key = 'mucho_unobtainable', rate = 1},
     },
 }
 
@@ -1389,6 +1398,10 @@ SMODS.Sound{
     key = 'hugebell',
     path = 'hugebell.ogg'
 }
+SMODS.Sound{
+    key = 'mysterygo',
+    path = 'snd_mysterygo.ogg'
+}
 
 
 
@@ -1396,7 +1409,7 @@ SMODS.Joker{
     key = "bigassjoker",
     loc_txt = {
         name = "Gargantuan Joker",
-        text = {"{X:mult, V:4}X#1#{}{} {C:mult}Mult{}",
+        text = {"{X:mult,V:4}X#1#{}{} {C:mult}Mult{}",
                 "if played hand contains a {V:1}Pair",
                 "This Joker takes up {V:2}#2#{} {V:1}Joker slots{}",
                 "{s:0.5,V:3}(by creating an unsellable Dummy Joker){}"}
@@ -1543,6 +1556,7 @@ SMODS.Joker{ --Bluff Time, created with JokerForge (wanted to try it out)
     blueprint_compat = true,
     eternal_compat = true,
     unlocked = true,
+    pools = {["BalatrezAddition"] = true},
     discovered = true,
     atlas = 'atlas3',
     pos = {x = 0, y = 1},
@@ -1635,19 +1649,6 @@ SMODS.Joker{ --You Will Never Want To Take This Joker Ever, made with JokerForge
             maxcards = 20
         }
     },
-    loc_txt = {
-        ['name'] = 'You Will Never Want To Take This Joker Ever',
-        ['text'] = {
-            [1] = 'Has a{C:green} #1# in #2#{} chance to create',
-            [2] = 'a {C:spectral}Black Hole{} {C:attention}Spectral{} card',
-            [3] = 'Copies a {C:attention}random consumable{} and has',
-            [4] = 'a {C:green}#1# in #3#{} chance to {C:hearts}self destruct{}',
-            [5] = '{C:spades}if{} you currently own {C:attention}#4# Jokers{},',
-            [6] = '{C:spades}if{} your total deck has {C:attention}less than #5#',
-            [7] = 'cards{} and {C:spades}if{} you have {C:attention}more than #4#',
-            [8] = '{}{C:inactive}stone cards{} in your{C:attention} total deck.{}'
-        }
-    },
     pos = {
         x = 1,
         y = 1
@@ -1658,9 +1659,11 @@ SMODS.Joker{ --You Will Never Want To Take This Joker Ever, made with JokerForge
     eternal_compat = true,
     unlocked = true,
     discovered = true,
+    pools = {["BalatrezAddition"] = true},
     atlas = 'atlas3',
 
     loc_vars = function(self, info_queue, card)
+        key = "j_mucho_youwillneverwanttotakethisjokerever"
         return {vars = {G.GAME.probabilities.normal, card.ability.extra.odds, card.ability.extra.odds2, card.ability.extra.jokerneeded, card.ability.extra.maxcards}}
     end,
 
@@ -1805,7 +1808,7 @@ SMODS.Joker {
             "after each {C:attention}hand played"
         }
     },
-    config = { extra = { odds = 128 } },
+    config = { extra = { odds = 256 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -1883,7 +1886,7 @@ SMODS.Joker {
     pools = {["BalatrezAddition"] = true}, 
     atlas = "atlas3",
     pos = { x = 4, y = 0 },
-    config = {extra = {min = 0, max = 5, current = 1}},
+    config = {extra = {min = 0, max = 2, current = 1}},
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -2117,6 +2120,7 @@ SMODS.Joker {
     rarity = 4,
     cost = 25,
     atlas = "atlas2",
+    pools = {["BalatrezAddition"] = true},
     pos = { x = 3, y = 2 }, soul_pos = {x = 4, y = 2},
     config = {extra = {odds = 2}},
     loc_vars = function(self, info_queue, card)
@@ -2190,6 +2194,7 @@ SMODS.Joker {
     blueprint_compat = true,
     rarity = 3,
     cost = 10,
+    pools = {["BalatrezAddition"] = true},
     config = { extra = { tagodds = 6, moneyodds = 3, moneylost = 20}},
     atlas = "asblueprint",
     pos = { x = 0, y = 0 }, soul_pos = { x = 1, y = 0 },
@@ -2246,8 +2251,499 @@ SMODS.Joker {
 }
 
 
+SMODS.Joker{
+    key = "quandingleV",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_quandingleV",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                    G.C.WHITE
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 2, y = 1},
+    rarity = 3,
+    cost = 8,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = false,
+    config = { extra = { odds = 16}},
+
+	calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if pseudorandom("slowdown?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                G.SETTINGS.GAMESPEED = 0.5
+            end
+            if #context.scoring_hand > 1 then
+                return {
+                    mult_mod = mult ^ 1.03 - mult,
+                    extra = { message = '^1.03 Mult', colour = G.C.DARK_EDITION }
+                }
+            end
+        end
+        if context.other_joker then
+            if pseudorandom("slowdown?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                G.SETTINGS.GAMESPEED = 0.5
+            end
+            if #context.scoring_hand > 1 and #context.scoring_hand < 6 then
+                return {
+                    mult_mod = mult ^ 0.97 - mult,
+                    extra = { message = '^0.97 Mult', colour = G.C.DARK_EDITION }
+                }
+            end
+        end
+	end
+
+}
+
+SMODS.Joker{
+    key = "jeff",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_jeff",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                    G.C.WHITE
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 3, y = 1},
+    rarity = 3,
+    cost = 8,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = false,
+    config = { extra = { odds = 8}},
+    calculate = function(self, card, context)
+        if context.joker_main and #context.scoring_hand == 3 and #G.play.cards == 3 and #G.jokers.cards == 3 and #G.consumeables.cards == 3 then
+            return {
+                    mult_mod = mult ^ 3 - mult,
+                    extra = { message = '^3 Mult', colour = G.C.DARK_EDITION },
+                    card:start_dissolve()
+                }
+        end
+        if context.end_of_round and context.cardarea == G.jokers then
+            if pseudorandom('jefftheguyoutprematurely') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                return {
+                    card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Jeff the Guy Out"}),
+                    card:start_dissolve()
+                }
+            end
+        end
+    end
+}
+
+SMODS.Atlas{
+    key = 'twerkwdg',
+    path = 'gastersprite.png',
+    px = 106.5,
+    py = 142.5,
+}
+
+SMODS.Sound{
+    key = "music_gastertheme",
+    path = "gasterfunkoverdrive.ogg",
+    pitch = 0.7,
+    volume = 0.5,
+    select_music_track = function()
+        if jokerExists("j_mucho_twerkwdg") and G.GAME.blind then
+		    return true end
+	end,
+}
+
+SMODS.Joker{
+    key = "twerkwdg",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_twerkwdg",
+            vars = {
+                G.GAME.probabilities.normal,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'twerkwdg',
+    rarity = 2,
+    cost = 6,
+    pools = {["BalatrezAddition"] = true},
+
+    pixel_size = { w = 71 , h = 95 },
+    frame = 0,
+
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 3 }},
+
+    calculate = function(self, card, context)
+        if #G.hand.highlighted > 0 then
+            explodeCard(card)
+        end
+    end
+}
+
+SMODS.Atlas{
+    key = 'undyne',
+    path = 'undyne.png',
+    px = 173,
+    py = 239,
+}
+
+SMODS.Sound{
+    key = "music_undyne",
+    path = "undyne_unused.ogg",
+    pitch = 1,
+    volume = 0.5,
+    select_music_track = function()
+        if jokerExists("j_mucho_undyne") and G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then
+		    return true end
+	end,
+}
+
+SMODS.Sound{
+    key = "snd_spear",
+    path = "spearsound.ogg",
+    pitch = 1,
+    volume = 0.5,
+}
+
+SMODS.Joker{
+    key = "undyne",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_undyne",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'undyne',
+    rarity = 2,
+    cost = 5,
+    pools = {["BalatrezAddition"] = true},
+
+    pixel_size = { w = 71 , h = 95 },
+    frame = 0,
+
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 3 }},
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if pseudorandom("spearofjustice") < G.GAME.probabilities.normal / card.ability.extra.odds and G.consumeables.config.card_limit > #G.consumeables.cards then
+                G.E_MANAGER:add_event(Event({
+                    delay = 0.1,
+                    func = function()
+                        SMODS.calculate_effect({message = "NGAHHH!!"}, card)
+                        card:juice_up(0.3, 0.5)
+                        return true
+                    end
+                }))
+                if G.consumeables.config.card_limit > #G.consumeables.cards then
+                    local card = create_card('Tarot', G.Consumeables, nil, nil, nil, nil, 'c_mucho_spear')
+                    card.sell_cost = 0
+                    play_sound('mucho_snd_spear', 1, 0.8)
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "winggaster",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {key = "mucho_thecore", set = "Other"}
+        return {
+            key = "j_mucho_winggaster",
+            vars = {
+                card.ability.extra.status,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 4, y = 1},
+    rarity = "mucho_rarerthanrare",
+    cost = 13,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { cancreate = true, status = "active" }},
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if #G.play.cards ~= #context.scoring_hand then
+                card.ability.extra.cancreate = false
+                card.ability.extra.status = "inactive"
+            end
+        end
+        if context.end_of_round then
+            if card.ability.extra.cancreate == true and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                local corechoice = pseudorandom("corechoice!", 1, 4)
+                local counter = 0
+                if corechoice == 1 then
+                    SMODS.add_card { set = "Joker", area = G.jokers, skip_materialize = true, key = "j_mucho_core1", no_edition = true}
+                    card.ability.extra.cancreate = false
+                    counter = counter + 1
+                    print("created core1, count: "..counter)
+                elseif corechoice == 2 then
+                    SMODS.add_card { set = "Joker", area = G.jokers, skip_materialize = true, key = "j_mucho_core2", no_edition = true}
+                    card.ability.extra.cancreate = false
+                    counter = counter + 1
+                    print("created core2, count: "..counter)
+                elseif corechoice == 3 then
+                    SMODS.add_card { set = "Joker", area = G.jokers, skip_materialize = true, key = "j_mucho_core3", no_edition = true}
+                    card.ability.extra.cancreate = false
+                    counter = counter + 1
+                    print("created core3, count: "..counter)
+                elseif corechoice == 4 then
+                    SMODS.add_card { set = "Joker", area = G.jokers, skip_materialize = true, key = "j_mucho_core4", no_edition = true}
+                    card.ability.extra.cancreate = false
+                    counter = counter + 1
+                    print("created core4, count: "..counter)
+                end
+            end
+        end
+        if context.setting_blind then
+            card.ability.extra.cancreate = true
+            card.ability.extra.status = "active"
+            local core1, core2, core3, core4 = next(SMODS.find_card("j_mucho_core1")), next(SMODS.find_card("j_mucho_core2")), next(SMODS.find_card("j_mucho_core3")), next(SMODS.find_card("j_mucho_core4"))
+            if core1 then
+                if core2 then
+                    if core3 then
+                        if core4 then
+                            G.E_MANAGER:add_event(Event({
+                                delay = 0.1,
+                                func = function()
+                                    card.children.center:set_sprite_pos({x = 4, y = 2})
+                                    play_sound('mucho_mysterygo', 1, 0.8)
+                                    card:juice_up(0.3, 0.5)
+                                    return true
+                                end
+                            }))
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 3,
+                                func = function()
+                                    explodeCard(card)
+                                    return true
+                                end
+                            }))
+                        end
+                    end
+                end
+            end
+        end
+    end
+}
 
 
+-- The CORE
+
+
+SMODS.Joker{
+    key = "core1",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_core1",
+            vars = {
+                card.ability.extra.xxmult,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'coreatlas', pos = {x = 0, y = 0},
+    rarity = 3,
+    cost = 9,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { chips = 100, xchips = 3 }},
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = 100
+            }
+        end
+        if context.individual and context.cardarea == G.play then
+            local core2, core3, core4 = next(SMODS.find_card("j_mucho_core2")), next(SMODS.find_card("j_mucho_core3")), next(SMODS.find_card("j_mucho_core4"))
+            if core2 then
+                if core3 then
+                    if core4 then
+                        return {
+                            xchips = 3,
+                        }
+                    end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "core2",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_core2",
+            vars = {
+                card.ability.extra.xxmult,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'coreatlas', pos = {x = 1, y = 0},
+    rarity = 3,
+    cost = 9,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = {  }},
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = 10
+            }
+        end
+        if context.individual and context.cardarea == G.play then
+            local core1, core3, core4 = next(SMODS.find_card("j_mucho_core1")), next(SMODS.find_card("j_mucho_core3")), next(SMODS.find_card("j_mucho_core4"))
+            if core1 then
+                if core3 then
+                    if core4 then
+                        return {
+                            xmult = 2.5,
+                        }
+                    end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "core3",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_core3",
+            vars = {
+                card.ability.extra.xxmult,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'coreatlas', pos = {x = 2, y = 0},
+    rarity = 3,
+    cost = 9,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { }},
+
+    calc_dollar_bonus = function(self, card)
+        return 6
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main or context.pre_discard then
+            local core1, core2, core4 = next(SMODS.find_card("j_mucho_core1")), next(SMODS.find_card("j_mucho_core2")), next(SMODS.find_card("j_mucho_core4"))
+            if core1 then
+                if core2 then
+                    if core4 then
+                        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + 10
+                        return {
+                            dollars = 10
+                        }
+                    end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "core4",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_core4",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'coreatlas', pos = {x = 3, y = 0},
+    rarity = 3,
+    cost = 9,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 3 }},
+
+        calculate = function(self, card, context)
+        if context.before then
+            local core1, core2, core3 = next(SMODS.find_card("j_mucho_core1")), next(SMODS.find_card("j_mucho_core2")), next(SMODS.find_card("j_mucho_core3"))
+            if core1 then
+                if core2 then
+                    if core3 then
+                        return {
+                            level_up = 3,
+                            print("shouldve level'd up?")
+                        }
+                    end
+                end
+            end
+        end
+        if context.before then
+            if pseudorandom("core4upgrade?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                return { level_up = 1, print("shouldve level'd up (no full core ver.)") }
+            end
+        end
+    end
+}
+
+
+
+
+
+
+ 
 
 -- functions to make time pass (mostly for animated atlases, thanks yahimod for the code!)
 
@@ -2256,7 +2752,6 @@ function jokerExists(abilityname)
     if G.jokers and G.jokers.cards then
         for i = 1, #G.jokers.cards do
             if G.jokers.cards[i].ability.name == abilityname then _check = true end
-            --if G.jokers.cards[i].ability.name == 'j_yahimod_subwaysurfers' then _check = true end
         end
     end
     return _check
@@ -2265,6 +2760,33 @@ end
 
 
 function decrementingTickEvent(type,tick)
+    if type == "G.effectmanager" then
+        for i = 1, #G.effectmanager do
+            if G.effectmanager[i] and G.effectmanager[i][1] then
+                if G.effectmanager[i][1].duration ~= nil and G.effectmanager[i][1].duration >= -1 then
+                    _eff = G.effectmanager[i][1]
+
+                    _eff.tfps = _eff.tfps + 1
+                    _eff.duration = _eff.duration - 1
+                    
+                    if _eff.tfps > 100/_eff.fps and _eff.fps ~= 0 then
+                        _eff.frame = _eff.frame + 1
+                        _eff.tfps = 0  
+                    end
+                    if _eff.frame > _eff.maxframe then
+                        _eff.frame = 1
+                    end
+            
+        
+                
+
+                elseif G.effectmanager[i][1].duration ~= nil and G.effectmanager[i][1].duration <= 0 then
+                    G.effectmanager[i] = nil
+                end
+            end
+        end
+    end
+
     if type == "j_mucho_thechuds" then
         if math.fmod(Mucho.ticks,10) == 0 then
             local _subcardcenter = G.P_CENTERS.j_mucho_thechuds
@@ -2285,6 +2807,26 @@ function decrementingTickEvent(type,tick)
             if _subcardcenter.frame > 48 then _subcardcenter.frame = 0 end
         end
     end
+    if type == "j_mucho_twerkwdg" then
+        if math.fmod(Mucho.ticks,2) == 0 then
+            local _subcardcenter = G.P_CENTERS.j_mucho_twerkwdg
+            _subcardcenter.frame = _subcardcenter.frame + 1
+            local _fr = _subcardcenter.frame
+            _subcardcenter.pos.x = math.fmod(_fr,13)
+            _subcardcenter.pos.y = math.floor(_fr/13)
+            if _subcardcenter.frame > 37 then _subcardcenter.frame = 0 end
+        end
+    end
+    if type == "j_mucho_undyne" then
+        if math.fmod(Mucho.ticks,4) == 0 then
+            local _subcardcenter = G.P_CENTERS.j_mucho_undyne
+            _subcardcenter.frame = _subcardcenter.frame + 1
+            local _fr = _subcardcenter.frame
+            _subcardcenter.pos.x = math.fmod(_fr,29)
+            _subcardcenter.pos.y = math.floor(_fr/29)
+            if _subcardcenter.frame > 27 then _subcardcenter.frame = 0 end
+        end
+    end
 end
 
 local upd = Game.update
@@ -2302,9 +2844,12 @@ function Game:update(dt)
         Mucho.dtcounter = Mucho.dtcounter - 0.010
         if jokerExists("j_mucho_thechuds") then decrementingTickEvent("j_mucho_thechuds",0) end
         if jokerExists("j_mucho_mustardshocked") then decrementingTickEvent("j_mucho_mustardshocked",0) end
+        if jokerExists("j_mucho_twerkwdg") then decrementingTickEvent("j_mucho_twerkwdg",0) end
+        if jokerExists("j_mucho_undyne") then decrementingTickEvent("j_mucho_undyne",0) end
     end
 
     if G.showsomething and G.showsomething > 0 then G.showsomething = G.showsomething - 1 end
+    if #G.effectmanager > 0 then decrementingTickEvent("G.effectmanager",0) end
 end
 
 
@@ -2318,7 +2863,7 @@ function love.draw()
     local _yscale = love.graphics.getHeight()/1080
     
 
-    function loadThatFuckingImage(fn)
+    function loadThatMuchoImage(fn)
         local full_path = (Mucho.path .. "customimages/" .. fn)
         local file_data = assert(NFS.newFileData(full_path),("Epic fail"))
         local tempimagedata = assert(love.image.newImageData(file_data),("Epic fail 2"))
@@ -2326,10 +2871,109 @@ function love.draw()
         return (assert(love.graphics.newImage(tempimagedata),("Epic fail 3")))
     end
 
+    function loadThatMuchoImageSpritesheet(fn,px,py,subimg,orientation)
+        local full_path = (Mucho.path 
+        .. "customimages/" .. fn)
+        local file_data = assert(NFS.newFileData(full_path),("Epic fail"))
+        local tempimagedata = assert(love.image.newImageData(file_data),("Epic fail 2"))
+
+        local tempimg = assert(love.graphics.newImage(tempimagedata),("Epic fail 3"))
+
+        local spritesheet = {}
+        for i = 1, subimg do
+            if orientation == 0 then -- 0 = downwards spritesheet
+                table.insert(spritesheet,love.graphics.newQuad(0, (i-1)*py, px, py, tempimg))
+            end
+            if orientation == 1 then -- 1 = rightwards spritesheet
+                table.insert(spritesheet,love.graphics.newQuad((i-1)*px, 0, px, py, tempimg))
+            end
+        end
+        --print ("LTFNIS: Successfully loaded spritesheet " .. fn)
+
+        return (spritesheet)
+    end
+
 
     if G.showsomething and (G.showsomething > 0) then
-        if Mucho.something == nil then Mucho.something = loadThatFuckingImage("something.png") end
+        if Mucho.something == nil then Mucho.something = loadThatMuchoImage("something.png") end
         love.graphics.setColor(1, 1, 1, 0.1) 
         love.graphics.draw(Mucho.something, 0*_xscale, 0*_yscale,0,_xscale,_yscale)
     end
+
+    if G.effectmanager then
+        
+        --print("Effect manager has "..#G.effectmanager)
+        for i = 1, #G.effectmanager do
+            local _xscale = love.graphics.getWidth()/1920
+            local _yscale = love.graphics.getHeight()/1080
+            --print("G.effectmanager[i].name".. G.effectmanager[i][1].name)
+            if G.effectmanager[i] ~= nil then
+                if G.effectmanager[i][1].name == "explosion" then
+                    if Mucho.imageexplosion == nil then Mucho.imageexplosion = loadThatMuchoImage("explosiongif.png") end
+                    if Mucho.imageexplosionsprite == nil then Mucho.imageexplosionsprite = loadThatMuchoImageSpritesheet("explosiongif.png",200,282,17,0) end
+                    imagetodraw = Mucho.imageexplosion
+                    quadtodraw = Mucho.imageexplosionsprite
+                    _imgindex = G.effectmanager[i][1].frame
+                    _xpos = G.effectmanager[i][1].xpos-(200/2)
+                    _ypos = G.effectmanager[i][1].ypos-(282/2)
+                    --print("_imgindex".. _imgindex)
+                    love.graphics.setColor(1, 1, 1, 1)
+                end
+                love.graphics.draw(imagetodraw, quadtodraw[_imgindex], _xpos, _ypos, 0 ,_xscale,_yscale)
+            end
+        end
+    end
 end
+
+SMODS.Sound({key = "glassbreak", path = "glassbreak.ogg",})
+SMODS.Sound({key = "snd_explosion", path = "snd_explosion.ogg",})
+
+function explodeCard(card)
+    play_sound("mucho_glassbreak")
+    playEffect("explosion",card.tilt_var.mx,card.tilt_var.my)
+    card:start_dissolve()
+    card = nil
+end
+
+
+function playEffect(effect,posx,posy)
+    if effect == "explosion" then
+        play_sound("mucho_snd_explosion")
+        neweffect = 
+            {
+            name = "explosion",
+            duration = 100,
+
+            frame = 1,
+            maxframe = 17,
+            fps = 20,
+            tfps = 0, -- ticks per frame per second
+
+
+            xpos = posx,
+            ypos = posy,
+            xvel = 0,
+            yvel = 0,
+            }end
+
+    if effect == "cardexplosion" then
+        neweffect = 
+            {
+            name = "crack",
+            duration = 200,
+
+            frame = 1,
+            maxframe = 1,
+            fps = 0,
+            tfps = 0, -- ticks per frame per second
+
+
+            xpos = posx,
+            ypos = posy,
+            xvel = 0,
+            yvel = 0,
+            }end
+    table.insert(G.effectmanager,{neweffect})
+end
+
+

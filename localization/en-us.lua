@@ -1,5 +1,16 @@
 return {
     descriptions = {
+        Other = {
+            mucho_thecore = {
+                name = "The CORE",
+                text = {
+                "{C:red}The CORE's Heart, The CORE's Base,", 
+                "{C:red}The CORE's Panel, The CORE's Outgrowth",
+                "{C:inactive,s:0.5}Created by the old Royal Scientist. {C:inactive,s:0.5}If all four pieces are together,",
+                "{C:inactive,s:0.5}it could hold an {C:dark_edition,s:0.5}immense {C:dark_edition,s:0.5}power {C:inactive,s:0.5}unbeknownst to humanity.",
+                }
+            },
+        },
         Joker = {
             j_mucho_sigmundfreud1 = {
                 name = "Sigmund Freud",
@@ -202,7 +213,7 @@ return {
                 text = {
                     'Reproduce un {V:2}divertido efecto{} de',
                     'sonido {V:1}por cada carta obtenida{}.',
-                    'Te hace creer que conseguiste {X:mult, C:white}cosas geniales{}{},',
+                    'Te hace creer que conseguiste {X:mult,C:white}cosas geniales{}{},',
                     'aunque solo obtuviste {C:chips}+0 y +10 Ficha{}.'
         }
             },
@@ -211,7 +222,7 @@ return {
                 text = {
                     'Play a {V:2}fun sound effect{} for',
                     '{V:1}each card scored{}.',
-                    'It makes you believe that you achieved {X:mult, C:white}awesome things{}{},',
+                    'It makes you believe that you achieved {X:mult,C:white}awesome things{}{},',
                     'even though you only got between {C:chips}+0 and +10 Chips{}.'
         }
             },
@@ -220,7 +231,7 @@ return {
                 text = {
                     'yǒu {C:green,E:1}shí fèn zhī yī {}de jī huì',
                     '{V:2}yǒng jiǔ shòu yǔ {}rèn hé dé fèn kǎ',
-                    '{X:mult, C:white}X2{} {C:mult}bèi shù {}',
+                    '{X:mult,C:white}X2{} {C:mult}bèi shù {}',
                     '{V:1}Canio：ò ，hǎo de {}'
         }
             },
@@ -260,6 +271,123 @@ return {
                     '{C:edition,E:1,s:2}Time to get freaky!{}',
                     'Upgrades the play poker hand {V:2}three times{} {V:1}(for real){}'
         }
+            },
+            j_mucho_youwillneverwanttotakethisjokerever = {
+                name = 'You Will Never Want To Take This Joker Ever',
+                text = {
+                    {'Has a{C:green} #1# in #2#{} chance to create',
+                    'a {C:spectral}Black Hole{} {C:attention}Spectral{} card'},
+                    {'{C:spades}if{} you currently own {C:attention}#4# Jokers{},',
+                    '{C:spades}if{} your total deck has {C:attention}less than #5#',
+                    'cards{} and {C:spades}if{} you have {C:attention}more than #4#',
+                    '{}{C:inactive}stone cards{} in your{C:attention} total deck:{}',
+                    'Copies a {C:attention}random consumable{} and has',
+                    'a {C:green}#1# in #3#{} chance to {C:hearts}self destruct{}'}
+                }
+            },
+            j_mucho_quandingleV = {
+                name = "Quandingle V",
+                text = {
+                    {'{X:dark_edition,V:1}^1.03{C:red} Mult{} per {C:attention}card scored',
+                    '{X:dark_edition,V:1}^0.97{C:red} Mult{} for each {C:attention}Joker{} card owned'},
+                    {'Each {C:attention}trigger{} of this {C:attention}Joker{} has a',
+                    '{C:green, E:1}#1# in #2# chance{} of lowering',
+                    'the current {C:attention}game speed{} to {C:attention}0.5{}'},
+                    {'Only works if you score {C:attention}more than 1 card{}',
+                    'The Mult loss per {C:attention}Joker{} card owned is {C:attention}not effective{}',
+                    'if you play {C:attention}more than 5 scoring cards{}'}
+                },
+            },
+            j_mucho_jeff = {
+                name = "Jeff the Guy",
+                text = {
+                    {'Playing {C:attention}exactly 3 scoring cards{} while',
+                    'owning {C:attention}exactly 3 Joker{} cards and',
+                    '{C:attention}exactly 3 consumables{} will grant {X:dark_edition,C:white}^3{C:red} Mult{}'},
+                    {'{C:red,E:2}self destructs{} if triggered',
+                    'Additionally, has a {C:green,E:1}#1# in #2# chance{}',
+                    'to {C:red,E:2}self destruct{} at the {C:attention}end of the round'},
+                },
+            },
+            j_mucho_twerkwdg = {
+                name = "Twerking Ding Gaster",
+                text = {
+                    {'{C:edition,s:2}oh yeah im twerking',
+                    '{C:edition,s:1.5}winging on her ding till i gaster',
+                    '{C:edition}the core aint gonna build itself'},
+                    {'{X:dark_edition,C:white}^2{} {C:mult}Mult{} if played hand',
+                    'contains a {C:attention}High Card{}',},
+                    {'Has a {C:green,E:1}#1# in 8 chance{} to gain',
+                    '{X:dark_edition,C:white}^52{} {C:mult}Mult{} if played hand',
+                    'contains a {C:attention}Pair{}'},
+                    {'Gain {C:money}$10{} per scored card if played hand',
+                    'contains a {C:attention}Three of a Kind{}'},
+                    {'Level up the currently played hand {C:attention}2 times{} if',
+                    'played hand contains a {C:attention}Four of a Kind'},
+                    {'{X:dark_edition,C:white}^26{} {C:chips}Chips{} if played hand',
+                    'contains a {C:attention}Five of a Kind'}
+                },
+            },
+            j_mucho_undyne = {
+                name = "Undyne, the Head of the Royal Guard",
+                text = {
+                    {'Has a {C:green,E:1}#1# in #2# chance{} to create a',
+                    '{C:tarot}Spear of Justice{} tarot card',
+                    '{C:inactive}NGAHHH!!'}
+                },
+            },
+            j_mucho_winggaster = {
+                name = "Wing Gaster, the Royal Scientist",
+                text = {
+                    {'Creates a {C:red}piece of {C:dark_edition,T:mucho_tooltips_thecore}The CORE{} at',
+                    'the {C:attention}end of every round {C:inactive}(Must have room)',},
+                    {'Playing a hand with {C:attention}1 or more',
+                    '{C:attention}unscored cards{} will make this {C:attention}Joker{} card unable to',
+                    'create any {C:red}CORE pieces{} for the {C:attention}rest of the round{}',
+                    '{C:inactive}(Currently #1#)'},
+                    {'{C:red,E:2}Disappears{} upon {C:attention}selecting a blind{} if all four',
+                    '{C:red}pieces of {C:dark_edition}The CORE{} are owned'}
+                },
+            },
+            j_mucho_core1 = {
+                name = "The CORE's Heart",
+                text = {
+                    {'Grants {C:chips}+100{} Chips per {C:attention}hand played{}',},
+                    {'{C:dark_edition,s:1.5}The CORE',
+                    "If {C:red}The CORE's Base{}, {C:red}The CORE's Panel{}",
+                    "and {C:red}The CORE's Outgrowth{} are owned alongside this Joker:",
+                    "Grants {X:chips,C:white}X3{} {C:chips}Chips{} per {C:attention}card scored"},
+                },
+            },
+            j_mucho_core2 = {
+                name = "The CORE's Base",
+                text = {
+                    {'Grants {C:mult}+10{} Mult per {C:attention}hand played{}'},
+                    {'{C:dark_edition,s:1.5}The CORE',
+                    "If {C:red}The CORE's Heart{}, {C:red}The CORE's Panel{}",
+                    "and {C:red}The CORE's Outgrowth{} are owned alongside this Joker:",
+                    "Grants {X:mult,C:white}X2.5{} {C:mult}Mult{} per {C:attention}card scored"},
+                },
+            },
+            j_mucho_core3 = {
+                name = "The CORE's Panel",
+                text = {
+                    {'Grants {C:money}$6{} at the {C:attention}end of the round{}',},
+                    {'{C:dark_edition,s:1.5}The CORE',
+                    "If {C:red}The CORE's Heart{}, {C:red}The CORE's Base{}",
+                    "and {C:red}The CORE's Outgrowth{} are owned alongside this Joker:",
+                    "Grants {C:money}$10{} per {C:attention}hand or discard played"},
+                },
+            },
+            j_mucho_core4 = {
+                name = "The CORE's Outgrowth",
+                text = {
+                    {'Has a {C:green,E:1}#1# in #2# chance{} to level up {C:attention}current played hand',},
+                    {'{C:dark_edition,s:1.5}The CORE',
+                    "If {C:red}The CORE's Heart{}, {C:red}The CORE's Base{}",
+                    "and {C:red}The CORE's Panel{} are owned alongside this Joker:",
+                    "Levels up the {C:attention}current played hand 3 times{}"},
+                },
             },
         },
         Tarot = {
@@ -391,6 +519,6 @@ return {
     misc = {
         poker_hands = {
             mucho_pkrhands_KT = "The King and his Jester"
-        }
-    }
+        },
+    },
 }

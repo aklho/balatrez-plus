@@ -147,6 +147,48 @@ SMODS.Consumable{
 
 }
 
+
+SMODS.Consumable{
+    key = 'spear',
+    set = "Tarot",
+    loc_txt = {
+        name = "Spear of Justice",
+        text = {
+            "Has a {C:green,E:1}1 in 2 chance{} {C:inactive}(fixed){} to create",
+            "a {C:tarot}Justice{} card",
+            "{C:inactive}(Doesn't need room)"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+        } end,
+    atlas = 'atlas_con', pos = {x = 2, y = 1},
+    cost = 3,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { }},
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                if pseudorandom("spear!ofjustice") < 1 / 2 and G.consumeables.config.card_limit > #G.consumeables.cards then
+                    play_sound('mucho_snd_spear')
+                    SMODS.add_card({ set = 'Tarot', area = G.consumeables, key = 'c_justice' })
+                    card:juice_up(0.3, 0.5)
+                end
+                return true
+            end
+        }))
+        delay(0.6)
+    end,
+
+}
+
 SMODS.Consumable{
     key = 'mostazapremium',
     set = "Spectral",
