@@ -155,7 +155,7 @@ SMODS.Consumable{
         name = "Spear of Justice",
         text = {
             "Has a {C:green,E:1}1 in 2 chance{} {C:inactive}(fixed){} to create",
-            "a {C:tarot}Justice{} card",
+            "a {C:tarot}Justice{} card (or any other {C:tarot}Tarot{} card)",
             "{C:inactive}(Doesn't need room)"
         }
     },
@@ -185,6 +185,30 @@ SMODS.Consumable{
             end
         }))
         delay(0.6)
+    end,
+
+}
+
+SMODS.Consumable{
+    key = 'thecure',
+    set = "Tarot",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "c_mucho_thecure",
+        } end,
+    atlas = 'atlas_con', pos = {x = 3, y = 1},
+    cost = -999,
+    sell_cost = 0,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { }},
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        G.GAME.dollar_buffer = 0
+        G.GAME.dollars = 0
     end,
 
 }

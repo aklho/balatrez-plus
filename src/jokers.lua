@@ -5,6 +5,25 @@ SMODS.Atlas {
     py = 475
 }
 
+SMODS.Font {
+    key = "utfont",
+    path = "PixelOperator-Bold.ttf",
+    FONTSCALE = 0.1
+}
+
+SMODS.Font {
+    key = "classfont",
+    path = "ChopinScript.otf",
+    FONTSCALE = 0.1
+}
+
+SMODS.Font {
+    key = "impact",
+    path = "impact.ttf",
+    FONTSCALE = 0.1
+}
+
+
 SMODS.Atlas {
     key = "atlas2",
     path = "atlas2.png",
@@ -80,6 +99,98 @@ SMODS.ObjectType{
         {key = 'mucho_unobtainable', rate = 1},
     },
 }
+
+-- little silly (taking ownership of Freakylatro's "Diddylord" to mess with it)
+-- ! CROSS COMPATIBILITY WITH FREAKYLATRO (by Lamar Tiberi or NGNOX), only activates if both mods are activated at once
+
+if next(SMODS.find_mod('freakylatro')) then
+
+    SMODS.Atlas {
+        key = "diddylord",
+        path = "balatrezfreakylatrocrosscontent_diddylord.png",
+        px = 355,
+        py = 475
+    }
+
+    SMODS.Sound({key = "blud", path = "blud.ogg",})
+
+
+
+    SMODS.Joker:take_ownership("freaky_diddylord", {
+        config = { card_limit = 2 },
+        atlas = "diddylord",
+        pos = {x = 0, y = 0},
+        pools = {["Freak"] = true},
+        add_to_deck = function(self, card, from_debuff)
+            self.loc_vars = function(self, info_queue, card)
+                return {key = "j_mucho_diddylordovertaken", vars = { number_format(card.ability.card_limit)}}
+            end
+            card.children.center:set_sprite_pos({x = 1, y = 0})
+            play_sound('mucho_hugebell', 1, 2)
+            play_sound('mucho_hugebell', 1.5, 2)
+            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
+        end,
+
+        remove_from_deck = function(self, card, from_debuff)
+            play_sound('mucho_hugebell', 1, 2)
+            play_sound('mucho_hugebell', 1.5, 2)
+            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
+        end,
+
+        calculate = function(self, card, context)
+            if
+            context.using_consumeable or 
+            context.skip_blind or  
+            context.reroll_shop or 
+            context.selling_card or 
+            context.buying_card or 
+            context.open_booster 
+            then
+            return { 
+                play_sound('mucho_semployment', math.random(1500,2100)/2000, 1),
+                play_sound('mucho_smustard', math.random(1500,4000)/2000, 1)
+            }
+        end
+        end
+    })
+
+    SMODS.Joker {
+        key = "truediddylord",
+        config = { card_limit = 2 },
+        pos = { x = 0, y = 0 },
+        rarity = 2,
+        cost = 8,
+        atlas = "diddylord",
+        pools = {["Freak"] = true},
+        loc_vars = function(self, info_queue, center)
+            return { key = "j_mucho_diddylord", vars = { number_format(center.ability.card_limit) } }
+        end,
+        add_to_deck = function(self, card, from_debuff)
+            self.loc_vars = function(self, info_queue, card)
+                return {key = "j_mucho_diddylordrevealed", vars = { number_format(card.ability.card_limit)}}
+            end
+            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
+        end,
+        remove_from_deck = function(self, card, from_debuff)
+            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
+        end,
+        calculate = function(self, card, context)
+            if
+            context.using_consumeable or 
+            context.skip_blind or  
+            context.reroll_shop or 
+            context.selling_card or 
+            context.buying_card or 
+            context.open_booster 
+            then
+            return { 
+                play_sound("mucho_blud", math.random(1500,2500)/2000), 0.1}
+            end
+        end
+    }
+end
+
+
 
 SMODS.Joker{
     key = "aterrador_joker",
@@ -1408,11 +1519,11 @@ SMODS.Sound{
 SMODS.Joker{
     key = "bigassjoker",
     loc_txt = {
-        name = "Gargantuan Joker",
-        text = {"{X:mult,V:4}X#1#{}{} {C:mult}Mult{}",
-                "if played hand contains a {V:1}Pair",
-                "This Joker takes up {V:2}#2#{} {V:1}Joker slots{}",
-                "{s:0.5,V:3}(by creating an unsellable Dummy Joker){}"}
+        name = "{f:mucho_impact}Gargantuan Joker",
+        text = {"{X:mult,V:4,f:mucho_impact}X#1#{}{} {C:mult,f:mucho_impact}Mult{}",
+                "{f:mucho_impact}if played hand contains a {V:1,f:mucho_impact}Pair",
+                "{f:mucho_impact}This Joker takes up {V:2,f:mucho_impact}#2#{} {V:1,f:mucho_impact}Joker slots{}",
+                "{s:0.5,V:3,f:mucho_impact}(by creating an unsellable Dummy Joker){}"}
     },
 
     loc_vars = function(self, info_queue, card)
@@ -2738,8 +2849,138 @@ SMODS.Joker{
     end
 }
 
+SMODS.Joker{
+    key = "perkeobudget",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_perkeobudget",
+            vars = {
+                card.ability.extra.baseodds,
+                card.ability.extra.odds,
+                card.ability.extra.cost,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 0, y = 2},
+    rarity = 2,
+    cost = 7,
+    pools = {["BalatrezAddition"] = true},
 
 
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { baseodds = 1, odds = 5, cost = 2, increase = 2 }},
+
+    calc_dollar_bonus = function(self, card)
+        return -card.ability.extra.cost
+    end,
+
+    calculate = function(self, card, context)
+        if context.ending_shop and G.consumeables.cards[1] and pseudorandom("copy perkeobudget?") < card.ability.extra.baseodds / card.ability.extra.odds then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'mucho_perkeobudget')
+                    local copied_card = copy_card(card_to_copy)
+                    copied_card:set_edition("e_negative", true)
+                    copied_card:add_to_deck()
+                    G.consumeables:emplace(copied_card)
+                    return true
+                end
+            }))
+            return { message = localize('k_duplicated_ex') }
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.blind.boss then
+            card.ability.extra.cost = card.ability.extra.cost + card.ability.extra.increase
+            return {
+                message = "Maintenance cost increased!"
+            }
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "onemore",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_onemore",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                    HEX("5e5e5e")
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 1, y = 2},
+    rarity = 2,
+    cost = 2,
+    pools = {["BalatrezAddition"] = true},
+
+
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { cost = 999.99, odds = 3, homeless = false }},
+    
+    calc_dollar_bonus = function(self, card)
+        if card.ability.extra.homeless == true then
+            card.children.center:set_sprite_pos({x = 2, y = 2})
+            return -card.ability.extra.cost
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                xmult = 2
+            }
+        end
+        if context.end_of_round and context.cardarea == G.jokers then
+            if pseudorandom("homeless") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                card.ability.extra.homeless = true
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "spamton",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_spamton",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                    G.C.FILTER
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 3, y = 2},
+    rarity = 2,
+    cost = 2,
+    pools = {["BalatrezAddition"] = true},
+
+
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 10 }},
+
+    calculate = function(self, card, context)
+        if context.joker_main and pseudorandom("[[Hyperlink Blocked]]") < G.GAME.probabilities.normal / card.ability.extra.odds then
+            SMODS.add_card{key = "c_mucho_thecure"}
+        end
+    end
+}
 
 
 

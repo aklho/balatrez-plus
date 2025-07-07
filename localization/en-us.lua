@@ -10,6 +10,14 @@ return {
                 "{C:inactive,s:0.5}it could hold an {C:dark_edition,s:0.5}immense {C:dark_edition,s:0.5}power {C:inactive,s:0.5}unbeknownst to humanity.",
                 }
             },
+            mucho_thecure = {
+                name = "The Cure",
+                text = {
+                "A {C:dark_edition}[[Specil Deal]]{} JUST FOR YOU!!", 
+                "SETS YOUR {C:attention}KROMER{} BACK TO 0!!",
+                "FEEL THE [[Freedom]] OF YOUR DEBTS [[At Half Price]]!!"
+                }
+            },
         },
         Joker = {
             j_mucho_sigmundfreud1 = {
@@ -303,8 +311,8 @@ return {
                 text = {
                     {'Playing {C:attention}exactly 3 scoring cards{} while',
                     'owning {C:attention}exactly 3 Joker{} cards and',
-                    '{C:attention}exactly 3 consumables{} will grant {X:dark_edition,C:white}^3{C:red} Mult{}'},
-                    {'{C:red,E:2}self destructs{} if triggered',
+                    '{C:attention}exactly 3 consumables{} will grant {X:dark_edition,C:white,f:mucho_classfont}^3{C:red,f:mucho_classfont} Mult{}'},
+                    {'{C:red,E:2,f:mucho_impact}self destructs{} if triggered',
                     'Additionally, has a {C:green,E:1}#1# in #2# chance{}',
                     'to {C:red,E:2}self destruct{} at the {C:attention}end of the round'},
                 },
@@ -332,7 +340,7 @@ return {
                 name = "Undyne, the Head of the Royal Guard",
                 text = {
                     {'Has a {C:green,E:1}#1# in #2# chance{} to create a',
-                    '{C:tarot}Spear of Justice{} tarot card',
+                    '{C:tarot}Spear of Justice{} tarot card after every {C:attention}hand played{}',
                     '{C:inactive}NGAHHH!!'}
                 },
             },
@@ -389,6 +397,53 @@ return {
                     "Levels up the {C:attention}current played hand 3 times{}"},
                 },
             },
+            j_mucho_perkeobudget = {
+                name = "Perkeo on a Budget",
+                text = {
+                    {'Has a {C:green,E:1}#1# in #2# chance{} {C:inactive}(fixed){} to create',
+                    'a {C:dark_edition}Negative{} {C:attention}copy{} of a random consumable',
+                    'at the {C:attention}end of the shop{}'},
+                    {"Costs {C:money}$#3#{} every round",
+                    "{C:inactive}(Maintenance cost)",
+                    "Cost {C:attention}increases for each Boss Blind defeated"},
+                },
+            },
+            j_mucho_onemore = {
+                name = "One more...",
+                text = {
+                    {'Grants {X:mult,C:white}X2{} {C:mult}Mult{} per {C:attention}hand played{}'},
+                    {'Has a {C:green,E:1}#1# in #2# chance{} to make you {C:red,E:2}homeless{}',
+                    'at the {C:attention}end of the round{}',
+                    '{V:1,E:1,f:mucho_classfont}(Just one more round...){}'}
+                }
+            },
+            j_mucho_spamton = {
+                name = "{f:mucho_utfont}Spamton G. Spamton",
+                text = {
+                    {'{f:mucho_utfont}HAS A {C:green,E:1,f:mucho_utfont}[#1# In #2# Chance]{f:mucho_utfont} TO {s:0.7,f:mucho_utfont}G{f:mucho_utfont}IVE YOU',
+                    '{C:attention,f:mucho_utfont}[The Cure]{f:mucho_utfont} TO YO{s:0.5,f:mucho_utfont}U{f:mucho_utfont}R [[Hyperlink Blocked]]',
+                    '{f:mucho_utfont}AFTER EACH {C:attention,s:0.7,f:mucho_utfont}[[Po{C:money,f:mucho_utfont}ker Hand]]{f:mucho_utfont} PLAYED!!',
+                    "{s:1.8,f:mucho_utfont}DEA{f:mucho_utfont}LS S{s:0.3,f:mucho_utfont}O G{s:1.3,f:mucho_utfont}OO{f:mucho_utfont}D I'L{C:dark_edition,s:1.1,f:mucho_utfont}L [$!{C:red,E:2,s:1.3,f:mucho_utfont}$$] M{s:0.9,f:mucho_utfont}YS{f:mucho_utfont}ELF AF{s:1.6,f:mucho_utfont}TER YO{C:attention,s:1.2,f:mucho_utfont}U [[Purchase]]!!"}
+                }
+            },
+            j_mucho_diddylordovertaken = {
+                name = "{f:mucho_impact,s:2,C:red}Fake DiddyLord",
+                text = {"And remember,",
+                        "{s:2,f:mucho_classfont}you cannot trust a diddyblud.",
+                        "{C:dark_edition,f:mucho_utfont}-#1# joker{} slots"}
+            },
+            j_mucho_diddylord = {
+                name = "DiddyLord",
+                text = {"And remember,",
+                        "you cannot trust a diddyblud.",
+                        "{C:dark_edition}+#1# joker slots"}
+            },
+            j_mucho_diddylordrevealed = {
+                name = "{s:1.5}True DiddyLord",
+                text = {"And remember,",
+                    "{s:1.2,E:2,C:attention}you cannot trust a diddyblud.",
+                    "{C:dark_edition}+#1# joker slots"}
+            },
         },
         Tarot = {
             c_mucho_mostaza = {
@@ -408,6 +463,14 @@ return {
                     "Each use has a {C:green,E:1}1 in 3 chance{} to {V:2}reset{}",
                     "card's {V:3}money{} back to {V:2}1{}"
                 }
+            },
+            c_mucho_thecure = {
+                name = "{f:mucho_utfont}THE CURE",
+                text = {
+                    {"{f:mucho_utfont}SETS YOUR {C:attention,s:1.2,f:mucho_utfont}KROMER{} {s:0.4,f:mucho_utfont}TO {s:1.1,f:mucho_utfont}[[Zero]]",
+                    '{s:3,f:mucho_utfont}"{s:0.8,f:mucho_utfont}WHO WOULD {C:inactive,s:1.1,f:mucho_utfont}[[Miss]]{f:mucho_utfont} SUC{s:1.2,f:mucho_utfont}H {C:chips,f:mucho_utfont}A [[Specil {s:1.3,C:money,f:mucho_utfont}Deal]]{}!?{s:3,f:mucho_utfont}"'},
+                    {'{s:3.8,f:mucho_utfont}[[Hyperlink Blocked]]'}
+                }
             }
         },
         Spectral = {
@@ -426,7 +489,7 @@ return {
                     '{V:1}(Currently: {V:3}#1#${}{V:1}){}',
                     "Card's {V:3}money{} {V:4, E:1}persists{} until the {V:2}game is closed{}",
                 }
-            }
+            },
         },
         Blind = {
             bl_mucho_el_monstruo = {
