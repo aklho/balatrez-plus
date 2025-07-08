@@ -38,6 +38,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "atlas4",
+    path = "atlas4.png",
+    px = 142,
+    py = 190
+}
+
 
 SMODS.Atlas {
     key = "chicotatlas",
@@ -103,93 +110,94 @@ SMODS.ObjectType{
 -- little silly (taking ownership of Freakylatro's "Diddylord" to mess with it)
 -- ! CROSS COMPATIBILITY WITH FREAKYLATRO (by Lamar Tiberi or NGNOX), only activates if both mods are activated at once
 
-if next(SMODS.find_mod('freakylatro')) then
+if BalatrezModConfig.bltrz_x_freaky then
+    if next(SMODS.find_mod('freakylatro')) then
 
-    SMODS.Atlas {
-        key = "diddylord",
-        path = "balatrezfreakylatrocrosscontent_diddylord.png",
-        px = 355,
-        py = 475
-    }
+        SMODS.Atlas {
+            key = "diddylord",
+            path = "balatrezfreakylatrocrosscontent_diddylord.png",
+            px = 355,
+            py = 475
+        }
 
-    SMODS.Sound({key = "blud", path = "blud.ogg",})
+        SMODS.Sound({key = "blud", path = "blud.ogg",})
 
 
 
-    SMODS.Joker:take_ownership("freaky_diddylord", {
-        config = { card_limit = 2 },
-        atlas = "diddylord",
-        pos = {x = 0, y = 0},
-        pools = {["Freak"] = true},
-        add_to_deck = function(self, card, from_debuff)
-            self.loc_vars = function(self, info_queue, card)
-                return {key = "j_mucho_diddylordovertaken", vars = { number_format(card.ability.card_limit)}}
+        SMODS.Joker:take_ownership("freaky_diddylord", {
+            config = { card_limit = 2 },
+            atlas = "diddylord",
+            pos = {x = 0, y = 0},
+            pools = {["Freak"] = true},
+            add_to_deck = function(self, card, from_debuff)
+                self.loc_vars = function(self, info_queue, card)
+                    return {key = "j_mucho_diddylordovertaken", vars = { number_format(card.ability.card_limit)}}
+                end
+                card.children.center:set_sprite_pos({x = 1, y = 0})
+                play_sound('mucho_hugebell', 1, 2)
+                play_sound('mucho_hugebell', 1.5, 2)
+                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
+            end,
+
+            remove_from_deck = function(self, card, from_debuff)
+                play_sound('mucho_hugebell', 1, 2)
+                play_sound('mucho_hugebell', 1.5, 2)
+                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
+            end,
+
+            calculate = function(self, card, context)
+                if
+                context.using_consumeable or 
+                context.skip_blind or  
+                context.reroll_shop or 
+                context.selling_card or 
+                context.buying_card or 
+                context.open_booster 
+                then
+                return { 
+                    play_sound('mucho_semployment', math.random(1500,2100)/2000, 1),
+                    play_sound('mucho_smustard', math.random(1500,4000)/2000, 1)
+                }
             end
-            card.children.center:set_sprite_pos({x = 1, y = 0})
-            play_sound('mucho_hugebell', 1, 2)
-            play_sound('mucho_hugebell', 1.5, 2)
-            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
-        end,
-
-        remove_from_deck = function(self, card, from_debuff)
-            play_sound('mucho_hugebell', 1, 2)
-            play_sound('mucho_hugebell', 1.5, 2)
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
-        end,
-
-        calculate = function(self, card, context)
-            if
-            context.using_consumeable or 
-            context.skip_blind or  
-            context.reroll_shop or 
-            context.selling_card or 
-            context.buying_card or 
-            context.open_booster 
-            then
-            return { 
-                play_sound('mucho_semployment', math.random(1500,2100)/2000, 1),
-                play_sound('mucho_smustard', math.random(1500,4000)/2000, 1)
-            }
-        end
-        end
-    })
-
-    SMODS.Joker {
-        key = "truediddylord",
-        config = { card_limit = 2 },
-        pos = { x = 0, y = 0 },
-        rarity = 2,
-        cost = 8,
-        atlas = "diddylord",
-        pools = {["Freak"] = true},
-        loc_vars = function(self, info_queue, center)
-            return { key = "j_mucho_diddylord", vars = { number_format(center.ability.card_limit) } }
-        end,
-        add_to_deck = function(self, card, from_debuff)
-            self.loc_vars = function(self, info_queue, card)
-                return {key = "j_mucho_diddylordrevealed", vars = { number_format(card.ability.card_limit)}}
             end
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
-        end,
-        remove_from_deck = function(self, card, from_debuff)
-            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
-        end,
-        calculate = function(self, card, context)
-            if
-            context.using_consumeable or 
-            context.skip_blind or  
-            context.reroll_shop or 
-            context.selling_card or 
-            context.buying_card or 
-            context.open_booster 
-            then
-            return { 
-                play_sound("mucho_blud", math.random(1500,2500)/2000), 0.1}
+        })
+
+        SMODS.Joker {
+            key = "truediddylord",
+            config = { card_limit = 2 },
+            pos = { x = 0, y = 0 },
+            rarity = 2,
+            cost = 8,
+            atlas = "diddylord",
+            pools = {["Freak"] = true},
+            loc_vars = function(self, info_queue, center)
+                return { key = "j_mucho_diddylord", vars = { number_format(center.ability.card_limit) } }
+            end,
+            add_to_deck = function(self, card, from_debuff)
+                self.loc_vars = function(self, info_queue, card)
+                    return {key = "j_mucho_diddylordrevealed", vars = { number_format(card.ability.card_limit)}}
+                end
+                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.card_limit
+            end,
+            remove_from_deck = function(self, card, from_debuff)
+                G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.card_limit
+            end,
+            calculate = function(self, card, context)
+                if
+                context.using_consumeable or 
+                context.skip_blind or  
+                context.reroll_shop or 
+                context.selling_card or 
+                context.buying_card or 
+                context.open_booster 
+                then
+                return { 
+                    play_sound("mucho_blud", math.random(1500,2500)/2000), 0.1}
+                end
             end
-        end
-    }
+        }
+    end
 end
-
 
 
 SMODS.Joker{
@@ -1396,7 +1404,9 @@ SMODS.Joker{
             '- {V:1}selling a card{}',
             '- {V:1}buying a card{}',
             '- {V:1}opening a booster pack{}',
-            ''
+            '',
+            'Edition rates are {C:attention}multiplied{} by x40',
+            'when this card is owned'
             }
     },
     atlas = 'atlas2', pos = {x = 1, y = 1},
@@ -1417,6 +1427,13 @@ SMODS.Joker{
                 }
             }
         } end,
+    
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.edition_rate = G.GAME.edition_rate * 40
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.edition_rate = G.GAME.edition_rate / 40
+    end,
     calculate = function(self, card, context)
         if context.hand_drawn or context.using_consumeable or context.skip_blind or context.playing_card_added or context.reroll_shop or context.selling_card or context.buying_card or context.open_booster or context.pre_discard then
             local currentairpods = SMODS.find_card('j_mucho_myairpods', true)
@@ -2982,9 +2999,197 @@ SMODS.Joker{
     end
 }
 
+SMODS.Joker{
+    key = "spamton",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_spamton",
+            vars = {
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                    G.C.FILTER
+                }
+            }
+        } end,
+    atlas = 'atlas3', pos = {x = 3, y = 2},
+    rarity = 2,
+    cost = 2,
+    pools = {["BalatrezAddition"] = true},
 
 
- 
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 10 }},
+
+    calculate = function(self, card, context)
+        if context.joker_main and pseudorandom("[[Hyperlink Blocked]]") < G.GAME.probabilities.normal / card.ability.extra.odds then
+            SMODS.add_card{key = "c_mucho_thecure"}
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "weirdgamblerhead",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_weirdgamblerhead",
+            vars = {
+                card.ability.extra.extraselect,
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'atlas4', pos = {x = 0, y = 0},
+    rarity = 2,
+    cost = 8,
+    pools = {["BalatrezAddition"] = true},
+
+
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { extraselect = 1, odds = 10 }},
+    
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+        SMODS.change_discard_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+        SMODS.change_discard_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+    end,
+
+    calculate = function(self, card, context)
+        if context.reroll_shop and pseudorandom("loseselection") < G.GAME.probabilities.normal / card.ability.extra.odds then
+            SMODS.change_play_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+            SMODS.change_discard_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+            play_sound("mucho_glassbreak")
+            card_eval_status_text(card,'jokers',nil,nil,nil,{message = "-1 card selection limit", color = G.C.PURPLE})
+
+        end
+    end
+
+}
+
+SMODS.Joker{
+    key = "fiveleg",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_fiveleg",
+            vars = {
+                card.ability.extra.extraselect,
+                card.ability.extra.cost,
+                card.ability.extra.increase,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'atlas4', pos = {x = 1, y = 0},
+    rarity = 3,
+    cost = 8,
+    pools = {["BalatrezAddition"] = true},
+
+
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { extraselect = 1, cost = 2, increase = 3 }},
+    
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+        SMODS.change_discard_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+        SMODS.change_discard_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        return -card.ability.extra.cost
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.blind.boss then
+            card.ability.extra.cost = card.ability.extra.cost + card.ability.extra.increase
+            return {
+                message = "Maintenance cost increased!"
+            }
+        end
+    end
+}
+
+SMODS.Sound {
+    key = "levelup", path = "levelup.ogg"
+}
+
+SMODS.Sound {
+    key = "soulhurt", path = "soulhurt.ogg"
+}
+
+
+SMODS.Joker{
+    key = "dumbassjoker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_dumbassjoker",
+            vars = {
+                card.ability.extra.odds1,
+                card.ability.extra.odds2,
+                card.ability.extra.extraselect,
+                colours = {
+                }
+            }
+        } end,
+    atlas = 'atlas4', pos = {x = 2, y = 0},
+    rarity = 3,
+    cost = 9,
+    pools = {["BalatrezAddition"] = true},
+
+
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { extraselect = 1, odds1 = 1, odds2 = 4 }},
+
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands['Straight Flush']) then
+            if pseudorandom("royalflushcsl+1?") < card.ability.extra.odds1 / card.ability.extra.odds2 then
+                SMODS.change_play_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+                SMODS.change_discard_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
+                play_sound("mucho_levelup")
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "+1 card selection limit", color = G.C.PURPLE})
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 3,
+                    func = function()
+                        explodeCard(card)
+                        return true
+                    end
+                }))
+            else
+                play_sound("mucho_soulhurt")
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "...Nothing happened!", color = G.C.PURPLE})
+            end
+        end
+    end
+}
+
+
+
 
 -- functions to make time pass (mostly for animated atlases, thanks yahimod for the code!)
 

@@ -9,27 +9,25 @@ SMODS.Edition{
         text = {
             '{X:mult,C:white}X#1#{} Mult per {V:2}consumable{}',
             'when this card is {V:2}scored{}',
-            '{V:1}(Currently: {{X:mult,C:white}X#2#{}{V:1}){}'
         }
     },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 self.config.mult_per,
-                (self.config.mult_per * #G.consumeables.cards) + 1,
                 colours = {
                     G.C.UI.TEXT_INACTIVE,
                     G.C.FILTER,
                 }
             }
         } end,
-    config = { mult_per = 1},
+    config = { mult_per = 0.75 },
     sound = {
 		sound = "mucho_salebalatritosound",
 		per = 1,
 		vol = 0.5,
 	},
-    weight = 0.001,
+    weight = 1.5,
     in_shop = true,
     extra_cost = 15,
     apply_to_float = true,
@@ -40,15 +38,18 @@ SMODS.Edition{
     end,
 
     calculate = function(self, card, context)
-		if  (
-				context.main_scoring -- for when on playing cards
-				and context.cardarea == G.play
-			) or (
-				context.edition -- for when on jonklers
-				and context.cardarea == G.jokers
-            )
-		then
+		if context.pre_joker or (context.main_scoring and context.cardarea == G.play) then
 			return { x_mult = (self.config.mult_per * #G.consumeables.cards) + 1 } -- updated value
 		end
 	end,
+}
+
+local miscitems = {
+    ebalatritic_shader,
+    ebalatritic,
+    }
+
+return {
+    name = "Misc.",
+    items = miscitems,
 }

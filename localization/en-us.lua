@@ -444,6 +444,29 @@ return {
                     "{s:1.2,E:2,C:attention}you cannot trust a diddyblud.",
                     "{C:dark_edition}+#1# joker slots"}
             },
+            j_mucho_weirdgamblerhead = {
+                name = "Weird Gambler Head",
+                text = {{"{C:attention}+#1# {C:purple}card selection limit"},
+                    {"Every {C:attention}reroll of the shop{} has a",
+                    "{C:green,E:1}#2# in #3# chance{} to {C:red,E:2}permanently decrease{}",
+                    "your {C:purple}card selection limit{} by {C:attention}1"}}
+            },
+            j_mucho_fiveleg = {
+                name = {"{s:0.8}Five-Legged Individual With Money","{s:0.8}In His Hands And Lightning Eyes"},
+                text = {{"{C:attention}+#1# {C:purple}card selection limit"},
+                        {"Costs {C:money}$#2#{} every round",
+                        "{C:inactive}(Maintenance cost)",
+                        "Cost {C:attention}increases by {C:money}$#3#{} for each {C:attention}Boss Blind{} defeated"},}
+            },
+            j_mucho_dumbassjoker = {
+                name = {
+                    "This {C:attention}Joker{}'s name and description are {C:attention}switched{}",
+                    "Has a {C:green,E:1}#1# in #2# chance{}{C:inactive} (fixed){} to grant {C:attention}+#3# {C:purple}card selection limit",
+                    "if hand played is a {C:attention}Straight Flush",
+                    "{C:red, E:2}Self destructs{} if successfully triggered"
+                },
+                text = {"Dumbass Joker"}
+            },
         },
         Tarot = {
             c_mucho_mostaza = {
