@@ -348,3 +348,27 @@ SMODS.Consumable {
     end
 }
 
+
+-- Planets
+
+
+SMODS.Consumable {
+    key = "eightplanets",
+    set = "Planet",
+    cost = 3,
+    atlas = 'atlas_con',
+    pos = { x = 0, y = 2 },
+    config = { hand_type = 'mucho_eightfold' },
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "c_mucho_eightplanets",
+            vars = {
+                G.GAME.hands['mucho_eightfold'].level,
+                "Eightfold",
+                G.GAME.hands['mucho_eightfold'].l_mult,
+                G.GAME.hands['mucho_eightfold'].l_chips,
+                colours = { (G.GAME.hands['mucho_eightfold'].level == 1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands['mucho_eightfold'].level)]) }
+            }
+        }
+    end
+}

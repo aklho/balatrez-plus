@@ -62,6 +62,21 @@ function G.UIDEF.settings_tab(tab)
     return setting_tab
 end
 
+local Getid_old = Card.get_id
+function Card:get_id()
+    local ret = Getid_old(self)
+    if ret >=2 and ret <=10 and next(find_joker("j_mucho_equality")) then ret = MuchoNumberRank
+    elseif ret >=11 and ret <=13 and next(find_joker("j_mucho_equality")) then ret = MuchoFaceRank end
+    return ret
+end
+
+SMODS.Atlas({
+	key = "modicon",
+	path = "muchoicon.png",
+	px = 34,
+	py = 34,
+})
+
 assert(SMODS.load_file("src/functions.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/blinds.lua"))()
@@ -75,3 +90,5 @@ assert(SMODS.load_file("src/pokerhands.lua"))()
 assert(SMODS.load_file("src/backs.lua"))()
 assert(SMODS.load_file("src/tags.lua"))()
 assert(SMODS.load_file("src/vouchers.lua"))()
+assert(SMODS.load_file("src/seals.lua"))()
+assert(SMODS.load_file("src/enhancements.lua"))()

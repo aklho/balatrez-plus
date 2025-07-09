@@ -467,6 +467,50 @@ return {
                 },
                 text = {"Dumbass Joker"}
             },
+            j_mucho_investor = {
+                name = "The Investor",
+                text = {"{C:attention}Stockpiles{} all your {C:chips}Chips{} each hand",
+                        "and {C:attention}unleashes{} 1/20th of it as {X:chips,C:white}Xchips{} on the {C:attention}final hand{}",
+                        "{C:inactive}(Currently stockpiled: {X:chips,C:white}X#1#{}{C:chips} Xchips{}{C:inactive})",
+                        "Scored {C:chips}Chips{} are {C:red, E:2}divided by 50{} on any played hand that {C:attention}isn't the final hand{}"}
+            },
+            j_mucho_xchipsjoker = {
+                name = "Blue Joker",
+                text = {"{X:chips,C:white}X2{} {C:chips}Chips",
+                        "{C:inactive,s:0.8}(Who even invited this guy here?)",}
+            },
+            j_mucho_boosted_xchipsjoker = {
+                name = "Bluer Joker",
+                text = {"This Joker gains {X:chips,C:white}X#1#{} {C:chips}Chips{}",
+                        "every time a {C:attention}playing card{}",
+                        "is destroyed from your deck",
+                        "{C:inactive}'Currently {X:chips,C:white}X#2# {C:inactive} Chips)"}
+            },
+            j_mucho_scroll = {
+                name = "The Scroll",
+                text = {"Each played card with",
+                        "{V:1}#2#{} suit permanently gains",
+                        "{X:mult,C:white} X#1# {} Mult when scored,",
+                        "{s:0.8}suit changes at end of round"}
+            },
+            j_mucho_crypticjoker = {
+                name = "Cryptic Joker",
+                text = {"All numbers are {C:attention}#1#s{},",
+                        "All faces are {C:attention}#2#s{},",
+                        "{s:0.8}Ranks change at end of round",
+                        "{C:inactive,s:0.7}(Hey, this one's familiar!)"}
+            },
+        },
+        Planet = {
+            c_mucho_eightplanets = {
+                name = "Eight Planets",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
         },
         Tarot = {
             c_mucho_mostaza = {
@@ -604,7 +648,23 @@ return {
     },
     misc = {
         poker_hands = {
-            mucho_pkrhands_KT = "The King and his Jester"
+            mucho_pkrhands_KT = "The King and his Jester",
+            mucho_pkrhands_eightfold = "Eightfold"
         },
+        ranks = {
+            mucho_10 = "10",
+            mucho_2 = "2",
+            mucho_3 = "3",
+            mucho_4 = "4",
+            mucho_5 = "5",
+            mucho_6 = "6",
+            mucho_7 = "7",
+            mucho_8 = "8",
+            mucho_9 = "9",
+            mucho_14 = "Ace",
+            mucho_11 = "Jack",
+            mucho_13 = "King",
+            mucho_12 = "Queen",
+        }
     },
 }

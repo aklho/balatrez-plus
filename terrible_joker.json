@@ -2,14 +2,14 @@
 	"id": "muchoJokers",
 	"name": "Balatrez+ (Mucho Jokers)",
 	"display_name": "Balatrez+",
-	"author": ["Fernando A."],
-	"description": "añade nuevos comodines al juego, basados ​​en personajes famosos de internet",
+	"author": ["aklho"],
+	"description": "An everything mod to strengthen the experience of Balatro",
 	"prefix": "mucho",
 	"main_file": "core.lua",
-	"priority": 105,
+	"priority": 31415926535,
 	"badge_colour": "6f7487",
 	"badge_text_colour": "dfe3f0",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"dependencies": [
         "Steamodded (>=1.0.0~BETA-0614a)"
     ]

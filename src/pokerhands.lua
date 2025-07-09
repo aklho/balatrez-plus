@@ -54,3 +54,39 @@ SMODS.PokerHand {
         --TODO : implement text change & score the troubadour when playing hand (currently scores the king only)
     end
 }
+
+SMODS.PokerHand {
+    key = "eightfold",
+    chips = 25,
+    mult = 4,
+    l_chips = 10,
+    l_mult = 1.5,
+    example = {
+        {'mucho_L_K', true},
+        {'D_J', true},
+        {'C_8', true},
+        {'mucho_L_9', true},
+        {'D_2', true},
+        {'H_A', true},
+        {'C_4', true},
+        {'S_6', true}
+    },
+    loc_txt = {
+        name = "Eightfold",
+        description = {
+            "Eight cards of any rank and suit.",
+        }
+    },
+    visible = false,
+
+    evaluate = function(parts, hand)
+        if #hand == 8 then
+            return { hand }
+        end
+
+    end,
+
+    modify_display_text = function(self, cards, scoring_hand)
+        return mucho_pkrhands_eightfold
+    end
+}
