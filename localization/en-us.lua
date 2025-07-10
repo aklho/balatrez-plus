@@ -208,12 +208,18 @@ return {
                 name = "Señor Freud",
                 text = {
                     'Presione {V:2}CTRL + O{} para activar este comodín',
+                    'Has a {C:green,E:1}#1# in 25 chance{} to {C:red,E:2}permanently',
+                    '{C:red,E:2}decrease your {C:purple,E:2}card selection limit{}',
+                    '{C:red,E:2}and {C:attention,E:2}shop slot limit{C:red,E:2}by 1'
         }
             },
             j_mucho_senorfreudtranslated = {
                 name = "Mr. Freud",
                 text = {
                     'Press {V:2}CTRL + O{} to activate the joker',
+                    'Has a {C:green,E:1}#1# in 25 chance{} to {C:red,E:2}permanently',
+                    '{C:red,E:2}decrease your {C:purple,E:2}card selection limit{}',
+                    '{C:red,E:2}and {C:attention,E:2}shop slot limit{C:red,E:2}by 1'
         }
             },
             j_mucho_salebalatrito = {
@@ -256,28 +262,28 @@ return {
                 name = "El verdadero Chicot",
                 text = {
                     '{C:edition,E:1,s:2}¡He vuelto, cabrones!{}',
-                    '{X:mult,C:white}X#1#{} {C:mult}múltiple{} {V:1}(verdadero){}'
+                    '{X:dark_edition,C:white}^#1#{} {C:mult}múltiple{} {V:1}(verdadero){}'
         }
             },
             j_mucho_verdadero_chicottranslated = {
                 name = "The real Chicot",
                 text = {
                     "{C:edition,E:1,s:2}I'm back, fuckers!{}",
-                    '{X:mult,C:white}X#1#{} {C:mult}Mult{} {V:1}(for real){}'
+                    '{X:dark_edition,C:white}^#1#{} {C:mult}Mult{} {V:1}(for real){}'
         }
             },
             j_mucho_verdadero_canio = {
                 name = "El verdadero Canio",
                 text = {
                     '{C:edition,E:1,s:2}¡Hora de volverse raro!{}',
-                    'Sube de nivel la mano jugada {V:2}tres veces{} {V:1}(verdadero){}'
+                    'Sube de nivel la mano jugada {V:2}seis veces{} {V:1}(verdadero){}'
         }
             },
             j_mucho_verdadero_caniotranslated = {
                 name = "The real Canio",
                 text = {
                     '{C:edition,E:1,s:2}Time to get freaky!{}',
-                    'Upgrades the play poker hand {V:2}three times{} {V:1}(for real){}'
+                    'Upgrades the play poker hand {V:2}six times{} {V:1}(for real){}'
         }
             },
             j_mucho_youwillneverwanttotakethisjokerever = {
@@ -499,6 +505,19 @@ return {
                         "All faces are {C:attention}#2#s{},",
                         "{s:0.8}Ranks change at end of round",
                         "{C:inactive,s:0.7}(Hey, this one's familiar!)"}
+            },
+            j_mucho_sweeperofmines = {
+                name = "Sweeper of Mines",
+                text = {{"All playing cards under {C:attention}7s{} grant",
+                        "{X:red,C:white}X2.3{} {C:mult}Mult{} when {C:attention}scored"},
+                        {"Each hand played has a {C:green, E:1}#1# in #2# chance{}",
+                        "to summon a game of {C:attention}Minesweeper",
+                        "{C:red,E:2,s:0.8}Losing the Minesweeper will also make you lose the run"}}
+            },
+            j_mucho_tutorialvideo = {
+                name = "Tutorial Video",
+                text = {{"{X:dark_edition,C:white}^#1#{} Mult for each {C:attention}Joker card",
+                        "{C:inactive}(Currently {X:dark_edition,C:white}^#2#{} {C:inactive}Mult)"}}
             },
         },
         Planet = {

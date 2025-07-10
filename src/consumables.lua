@@ -278,12 +278,12 @@ SMODS.Consumable{
     use = function(self, card, area, copier)
         local raritych = pseudorandom("raritycheck", 1, 20)
         local value = nil
-        if raritych < 14 then
+        if raritych < 13 then
             value = 3
-        elseif raritych > 13 and raritych < 20 then
+        elseif raritych > 12 and raritych < 19 then
             value = "mucho_rarerthanrare"
-        elseif raritych == 20 then
-            value = "mucho_upperrarity"
+        elseif raritych >= 19 then
+            value = "mucho_exceptional"
         end
         G.E_MANAGER:add_event(Event({
             trigger = 'after',

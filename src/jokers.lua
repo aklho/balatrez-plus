@@ -68,17 +68,18 @@ SMODS.Atlas {
 }
 
 SMODS.Rarity{
-    key = 'upperrarity',
-    loc_txt = { name = "Diddybluddoso" },
-    badge_colour = HEX("3527d6"),
-    default_weight = 0.0005
-}
-
-SMODS.Rarity{
     key = 'rarerthanrare',
     loc_txt = { name = "Rarer than Rare" },
     badge_colour = HEX("a83283"),
     default_weight = 0.01
+}
+
+SMODS.Rarity{
+    key = 'exceptional',
+    loc_txt = { name = "Exceptional" },
+    badge_colour = HEX("c7f0e1"),
+    text_colour = HEX("1f1f1f"),
+    default_weight = 0.002
 }
 
 SMODS.Rarity{
@@ -101,8 +102,8 @@ SMODS.ObjectType{
         {key = 'Common', rate = 0.3},
         {key = 'Uncommon', rate = 0.75},
         {key = 'Rare', rate = 0.95},
-        {key = 'mucho_rarerthanrare', rate = 0.978},
-        {key = 'mucho_upperrarity', rate = 0.9995},
+        {key = 'mucho_rarerthanrare', rate = 0.99},
+        {key = 'mucho_exceptional', rate = 0.998},
         {key = 'mucho_unobtainable', rate = 1},
     },
 }
@@ -223,7 +224,7 @@ if BalatrezModConfig.bltrz_x_freaky then
                         explodeCard(card)
                     elseif pseudorandom("^5 mult?") < G.GAME.probabilities.normal / 15 then
                         return {
-                            mult_mod = mult ^ 5 - mult,
+                            mult_mod = mult ^ 4 - mult,
                             extra = { message = '^5 Mult', colour = G.C.DARK_EDITION }
                         }
                     elseif pseudorandom("create fake diddybluds") < G.GAME.probabilities.normal / 20 then
@@ -266,7 +267,7 @@ if BalatrezModConfig.bltrz_x_freaky then
                 end
                 if context.joker_main then
                     return {
-                        mult_mod = mult ^ card.ability.extra.mult - mult,
+                        mult_mod = mult ^ (card.ability.extra.mult-1) - mult,
                         extra = { message = '^'..card.ability.extra.mult..' tuffy tuff', colour = G.C.DARK_EDITION }
                     }
                 end
@@ -602,7 +603,7 @@ SMODS.Joker{
             }
         } end,
     atlas = 'atlas', pos = {x = 2, y = 2},
-    rarity = 3,
+    rarity = 'mucho_rarerthanrare',
     cost = 9,
     pools = {["BalatrezAddition"] = true},
     blueprint_compat = false,
@@ -741,6 +742,7 @@ SMODS.Joker{
         return {
             key = next(SMODS.find_card("j_mucho_translator")) and "j_mucho_senorfreudtranslated" or "j_mucho_senorfreud",
             vars = {
+                G.GAME.probabilities.normal,
                 colours = {
                     G.C.SECONDARY_SET.Tarot,
                     G.C.FILTER
@@ -862,7 +864,7 @@ SMODS.Joker{
             }
         } end,
     atlas = 'chicotatlas', pos = {x = 0, y = 0}, soul_pos = {x = 1, y = 0},
-    rarity = "mucho_upperrarity",
+    rarity = "mucho_exceptional",
     cost = 35,
     pools = {["BalatrezAddition"] = true},
     blueprint_compat = true,
@@ -870,7 +872,7 @@ SMODS.Joker{
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    config = { extra = { realXmult = 15, Xmult = 'Que seas bendecido con montañas de oro y plata, amigo.'}},
+    config = { extra = { realXmult = 4, Xmult = ''}},
 
 	calculate = function(self, card, context)
 		-- Tests if context.joker_main == true.
@@ -878,11 +880,11 @@ SMODS.Joker{
 		if context.joker_main then
 			-- Tells the joker what to do. In this case, it pulls the value of mult from the config, and tells the joker to use that variable as the "mult_mod".
 			return {
-				Xmult_mod = card.ability.extra.realXmult,
+				Xmult_mod = mult ^ (card.ability.extra.realXmult-1),
 				-- This is a localize function. Localize looks through the localization files, and translates it. It ensures your mod is able to be translated. I've left it out in most cases for clarity reasons, but this one is required, because it has a variable.
 				-- This specifically looks in the localization table for the 'variable' category, specifically under 'v_dictionary' in 'localization/en-us.lua', and searches that table for 'a_mult', which is short for add mult.
 				-- In the localization file, a_mult = "+#1#". Like with loc_vars, the vars in this message variable replace the #1#.
-				message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
+				extra = { message = "^4 Mult", color = G.C.DARK_EDITION}
 				-- Without this, the mult will stil be added, but it'll just show as a blank red square that doesn't have any text.
 			}
 		end
@@ -903,7 +905,7 @@ SMODS.Joker{
             }
         } end,
     atlas = 'canioatlas', pos = {x = 0, y = 0}, soul_pos = {x = 1, y = 0},
-    rarity = "mucho_upperrarity",
+    rarity = "mucho_exceptional",
     cost = 35,
     pools = {["BalatrezAddition"] = true},
     blueprint_compat = true,
@@ -919,7 +921,7 @@ SMODS.Joker{
 		if context.before then
 			-- Tells the joker what to do. In this case, it pulls the value of mult from the config, and tells the joker to use that variable as the "mult_mod".
             return{
-                level_up = 3,
+                level_up = 6,
                 message = card.ability.extra.Xchips
             }
 		end
@@ -2559,7 +2561,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.joker_main and #context.scoring_hand == 3 and #G.play.cards == 3 and #G.jokers.cards == 3 and #G.consumeables.cards == 3 then
             return {
-                    mult_mod = mult ^ 3 - mult,
+                    mult_mod = mult ^ 2 - mult,
                     extra = { message = '^3 Mult', colour = G.C.DARK_EDITION },
                     card:start_dissolve()
                 }
@@ -3447,11 +3449,12 @@ SMODS.Joker{
             end
             if context.remove_playing_cards then
                 card.ability.extra.xchips = card.ability.extra.xchips + (#context.removed * card.ability.extra.xchipsgain)
-                return {message = {message = "X"..card.ability.extra.xchips.." Chips", color = G.C.CHIPS}}
+                return {message = "X"..card.ability.extra.xchips.." Chips"}
             end
         end
     end
 }
+
 
 
 
@@ -3529,7 +3532,56 @@ MuchoFaceRank = 13
             MuchoFaceRank = math.floor(pseudorandom("number_rank", 2, 13))
         end
     end
-  }
+}
+
+SMODS.Joker{
+    key = "tutorialvideo",
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_tutorialvideo",
+            vars = { card.ability.extra.multper, card.ability.extra.multper * (G.jokers and #G.jokers.cards or 0) }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 3, y = 1},
+    rarity = 2,
+    cost = 5,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { multper = 0.6}},
+
+    calculate = function(self, card, context)
+        if next(SMODS.find_mod("Talisman")) then
+            if context.joker_main then
+                print (mult, card.ability.extra.multper, #G.jokers.cards, mult ^ lenient_bignum(((card.ability.extra.multper-1) * #G.jokers.cards)))
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Balatro Beginner's Guide"})
+                love.system.openURL("https://www.youtube.com/watch?v=cqtsUX38HmE&ab_channel=GothicLordUK")
+                return {
+                    xmult = lenient_bignum(mult ^ ((card.ability.extra.multper) * #G.jokers.cards-1))
+                }
+                
+            end
+        else
+            if context.joker_main then
+                print (mult, card.ability.extra.multper, #G.jokers.cards, mult ^ ((card.ability.extra.multper-1) * #G.jokers.cards))
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Balatro Beginner's Guide"})
+                love.system.openURL("https://www.youtube.com/watch?v=cqtsUX38HmE&ab_channel=GothicLordUK")
+                return {
+                    xmult = mult ^ ((card.ability.extra.multper) * #G.jokers.cards-1)
+                }
+                
+            end
+        end
+    end
+}
+
+
+
 
 
 -- functions to make time pass (mostly for animated atlases, thanks yahimod for the code!)
