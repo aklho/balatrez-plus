@@ -25,7 +25,7 @@ SMODS.Tag {
             }
         } end,
     config = {prob2 = 2},
-    min_ante = 1,
+    min_ante = 3,
     atlas = "tagatlas", pos = {x=0, y=0},
     apply = function(self, tag, context)
         if pseudorandom("rarerthanraretag") < G.GAME.probabilities.normal / self.config.prob2 and context.type == 'store_joker_create' then
@@ -167,6 +167,84 @@ SMODS.Tag{
             tag:yep('+', HEX("ffddaa"),function()
                 local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
                 G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_mucho_booster_balatrez_Fabuloso'], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.cost = 0
+                card.from_tag = true
+                G.FUNCS.use_card({config = {ref_table = card}})
+                card:start_materialize()
+                G.CONTROLLER.locks[lock] = nil
+                return true
+            end)
+            tag.triggered = true
+            return true
+        end
+    end,
+    atlas = "tagatlas"
+}
+
+SMODS.Tag{
+    key = 'balatrezboostermax',
+    loc_txt = {
+        name = 'MAX Tag',
+        text = {
+            "Has a {C:green,E:1}#1# in #2# chance{} of",
+            "granting a free {C:attention}MAX Balatrez Balatrito Booster Pack"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                G.GAME.probabilities.normal,
+                card.config.prob2,
+                colours = {
+                    HEX("a83283")
+                }
+            }
+        } end,
+    config = {prob2 = 3},
+    pos = {x = 5, y = 0},
+    min_ante = 3,
+    apply = function(self, tag, context)
+        if pseudorandom("rarerthanraretag") < G.GAME.probabilities.normal / self.config.prob2 and context.type == 'new_blind_choice' then
+            local lock = tag.ID
+            G.CONTROLLER.locks[lock] = true
+            tag:yep('+', HEX("ffddaa"),function()
+                local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_mucho_booster_balatrez_MAX'], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.cost = 0
+                card.from_tag = true
+                G.FUNCS.use_card({config = {ref_table = card}})
+                card:start_materialize()
+                G.CONTROLLER.locks[lock] = nil
+                return true
+            end)
+            tag.triggered = true
+            return true
+        elseif pseudorandom("rarerthanraretag") > G.GAME.probabilities.normal / self.config.prob2 and context.type == 'new_blind_choice' then
+            tag:nope()
+            tag.triggered = true
+        end
+    end,
+    atlas = "tagatlas"
+}
+
+SMODS.Tag{
+    key = 'balatrezboosterhousing',
+    loc_txt = {
+        name = 'Housing Tag',
+        text = {
+            "Gives a free",
+            "{C:attention}Large Balatrez HousingTM Booster Pack"
+        }
+    },
+    pos = {x = 0, y = 1},
+    min_ante = 0,
+    apply = function(self, tag, context)
+        if context.type == 'new_blind_choice' then
+            local lock = tag.ID
+            G.CONTROLLER.locks[lock] = true
+            tag:yep('+', HEX("ffddaa"),function()
+                local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
+                G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_mucho_booster_balatrez_house_large'], {bypass_discovery_center = true, bypass_discovery_ui = true})
                 card.cost = 0
                 card.from_tag = true
                 G.FUNCS.use_card({config = {ref_table = card}})

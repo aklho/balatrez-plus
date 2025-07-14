@@ -101,3 +101,19 @@ SMODS.Back{
         }))
     end
 }
+
+SMODS.Back{
+    key = "exceptionaldeck",
+	loc_txt = {
+		name = "Exceptional Deck",
+		text = {"Start run with a {C:spectral}Balatrez MAX{} spectral card",
+				"{C:red}-1 hand, discard and joker slot"}
+
+	},
+    pos = {x = 2, y = 0},
+	config = { hands = -1, discards = - 1, joker_slot = -1, consumables = { 'c_mucho_balatrezmax' } },
+	loc_vars = function(self, info_queue, back)
+        return { vars = { self.config.hands, self.config.discards, self.config.joker_slot } }
+    end,
+    atlas = "mucho_deck"
+}

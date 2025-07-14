@@ -13,4 +13,4 @@ function Create_UIBox_custom_video1(name, buttonname, length)
   local t = create_UIBox_generic_options({ back_delay = length , back_label = buttonname, colour = G.C.BLACK, padding = 0, contents = {
     {n=G.UIT.O, config={object = vid_sprite}} }})
   return t
-end
+  end

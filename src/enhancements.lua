@@ -8,7 +8,7 @@ SMODS.Atlas {
 SMODS.Enhancement {
     key = "smwgenhancement",
     loc_txt = {
-        name = "Smart Man With Glasses Download Wallpaper Enhancement",
+        name = "Smart Man With Glasses Download Wallpaper Card",
         text = {"{C:money}$#1#{} per Joker owned when scored"}
     },
     atlas = "enhancementatlas", pos = {x = 0, y = 0},

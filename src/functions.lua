@@ -161,3 +161,26 @@ troubadours_in_pool = function()
     local spectrum_played = false
     return spectrum_played
 end
+
+
+-- Random tag selection (stolen from JoyousSpring, which in turn stole its code from Cryptid)
+Mucho.add_random_tag = function()
+    local tag_key = get_next_tag_key("Mucho!")
+    local i = 0
+    while tag_key == "tag_boss" and i < 6 do
+        tag_key = get_next_tag_key("Mucho!")
+        i = i + 1
+    end
+    tag_key = tag_key ~= "tag_boss" and tag_key or "tag_double"
+    local tag = Tag(tag_key)
+    if tag.name == "Orbital Tag" then
+        local _poker_hands = {}
+        for k, v in pairs(G.GAME.hands) do
+            if v.visible then
+                _poker_hands[#_poker_hands + 1] = k
+            end
+        end
+        tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "joy_orbital")
+    end
+    add_tag(tag)
+end

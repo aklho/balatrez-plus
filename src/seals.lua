@@ -7,7 +7,7 @@ SMODS.Atlas {
 
 SMODS.Seal {
     name = "Smart Man With Glasses Download Wallpaper Seal",
-    key = "smwg_seal",
+    key = "smwgseal",
     badge_colour = HEX("e6b26e"),
 	config = { dolar = 1  },
     loc_txt = {

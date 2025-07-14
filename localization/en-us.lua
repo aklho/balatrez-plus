@@ -506,6 +506,13 @@ return {
                         "{s:0.8}Ranks change at end of round",
                         "{C:inactive,s:0.7}(Hey, this one's familiar!)"}
             },
+            j_mucho_tagmaster = {
+                name = "Tag Master",
+                text = {{"Each {C:attention}shop reroll{} has a",
+                        "{C:green,E:1}#1# in #2# chance{} of granting",
+                        "a {C:attention}random tag{}"},
+                        {"Rerolls are {C:money}$1{} {C:red}more expensive{}"}}
+            },
             j_mucho_sweeperofmines = {
                 name = "Sweeper of Mines",
                 text = {{"All playing cards under {C:attention}7s{} grant",
@@ -518,6 +525,261 @@ return {
                 name = "Tutorial Video",
                 text = {{"{X:dark_edition,C:white}^#1#{} Mult for each {C:attention}Joker card",
                         "{C:inactive}(Currently {X:dark_edition,C:white}^#2#{} {C:inactive}Mult)"}}
+            },
+            j_mucho_multspread = {
+                name = "Mult Spread",
+                text = {{"This Joker gains {X:dark_edition,C:white}^#1#{} Mult",
+                        "for each {V:1}Rarer than Rare{} {C:attention}Joker{} card",
+                        "currently owned",
+                        "{C:inactive}(Currently {X:dark_edition,C:white}^#2#{} {C:inactive}Mult)"}}
+            },
+            j_mucho_spamtonneo = {
+                name = "{f:mucho_utfont,s:1.5,C:money}Spamton {f:mucho_utfont,s:1.5,C:dark_edition}NEO",
+                text = {{"Generates a {C:tarot}Pipis{} card for almost",
+                        "{C:attention}every possible action in-game{}",
+                        "{C:inactive,s:0.85}(Must have room){}"},
+                        {"{}This Joker gains {X:dark_edition,C:white}^#1#{} Mult",
+                        "for every {C:tarot}Pipis{} card used",
+                        "{C:inactive}(Currently {X:dark_edition,C:white}^#2#{} {C:inactive}Mult)"},
+                        {"Each {C:tarot}Pipis{} generated has a",
+                        "{C:green,E:1}#3# in #4# chance{} of being {C:dark_edition}Negative"}}
+            },
+            j_mucho_djmustard = {
+                name = "DJ Mustard",
+                text = {{"Gain {X:dark_edition,C:white}^#1#{} Mult for each",
+                        "card {C:red,E:2}debuffed{} by this {C:attention}Joker{}",
+                        "{C:inactive}(Currently {X:dark_edition,C:white}^#4#{} {C:inactive}Mult)"},
+                        {"Each card owned alongside this Joker has",
+                        "a {C:green,E:1}#2# in #3# chance{} {C:inactive}(fixed){} of being",
+                        "{C:red,E:2}debuffed permanently{} when a hand is played",
+                        "{C:inactive}(Cannot debuff another DJ Mustard)",},
+                        {"Cards only have {C:attention}one chance{} of being debuffed",
+                        'and will be considered {C:purple}"safe"{} from other {C:attention}DJ Mustard{}s',
+                        'for the {C:attention}rest of the run{} if they are not debuffed'}}
+            },
+            j_mucho_jackenstein = {
+                name = "{f:mucho_utfont,E:2}YOUR TAKING TOO LONG",
+                text = {{"Each in-game tick has a {C:green,E:1}#1# in #2# chance{}",
+                        "of granting this Joker {X:dark_edition,C:white}^#3#{} Mult",
+                        "{C:inactive}(Currently {X:dark_edition,C:white}^#4#{} {C:inactive}Mult)"}}
+            },
+
+            --> FROM HERE ON OUT: HOUSES
+
+            j_mucho_common_house = {
+                name = "Common House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}",
+				},
+            },
+            j_mucho_rare_house = {
+                name = "Rare House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}",
+				},
+            },
+            j_mucho_rarer_than_rare_house = {
+                name = "Rarer than Rare House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}",
+				},
+            },
+            j_mucho_exceptional_house = {
+                name = "Exceptional House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult",
+					"{C:inactive,s:0.8}There is no place like home!{}",},
+                    {"This Joker gains {X:dark_edition,C:white}^#4#{} Mult",
+                    "every {C:attention}#3#{} hands{} played",
+                    "{C:inactive}(Currently #2#/#3#){}"}
+				},
+            },
+            j_mucho_upside_down_house = {
+                name = "Upside Down House",
+                text = {
+					"{C:blue}+#1#{} Hands only after",
+					"scoring {C:attention}#2#{}",
+					"{C:inactive,s:0.8}The home is a lie.{}",
+				},
+            },
+            j_mucho_long_house = {
+                name = "Long House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like an absurdly long home!{}",
+				},
+            },
+            j_mucho_bubble_gum_machine_house = {
+                name = "Bubble Gum Machine House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult",
+					"{C:inactive,s:0.8}There is no place like home!{}",},
+                    {"This Joker has a {C:green,E:1}#2# in #3# chance{}",
+                    "to gain {X:dark_edition,C:white}^#6#{} Mult",
+                    "every {C:attention}#5#{} hands{} played",
+                    "{C:inactive}(Currently #4#/#5#){}"}
+				},
+            },
+            j_mucho_doorless_house = {
+                name = "Doorless House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"The number of hands needed {C:attention}changes",
+                    "after each round"}
+				},
+            },
+            j_mucho_realistic_house = {
+                name = "Realistic House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is a place like home!{}",
+				},
+            },
+            j_mucho_not_a_house = {
+                name = "Not a House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult",
+					"{C:inactive,s:0.8}There is no place like home!{}",},
+                    {"This Joker gains {X:dark_edition,C:white}^#4#{} Mult",
+                    "every {C:attention}#3#{} hands{} played",
+                    "{C:inactive}(Currently #2#/#3#){}"}
+				},
+            },
+            j_mucho_ai_generated_house = {
+                name = "AI-Generated House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+                    "and watching {C:attention}#4#{} videos{}",
+                    "{C:inactive}(Currently #5#/#4#){}",
+					"{C:inactive,s:0.8}This home is oddly sloppy!{}"},
+                    {"Each hand played has a {C:green,E:1}#6# in #7# chance{}",
+                    "of playing a {C:attention}short five-second video{}",
+                    "{C:inactive,s:0.8}This Joker $!$@ing sucks!{}"}
+				},
+            },
+            j_mucho_lots_of_houses_stacked_on_one_another = {
+                name = "Lots of Houses Stacked on One Another",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"{X:mult,C:white}X#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"{C:mult}+#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"{X:dark_edition,C:white}^#1#{} Chips only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"{X:chips,C:white}X#1#{} Chips only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+                    {"{C:chips}+#1#{} Chips only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}"},
+				},
+            },
+            j_mucho_negative_house = {
+                name = "Negative House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}",},
+                    {"Becomes {C:dark_edition}Negative{} only after",
+					"playing {C:attention}#4#{} hands{}",
+					"{C:inactive}(Currently #2#/#4#){}",
+					"{C:inactive,s:0.8}There is no place like home!{}",}
+				},
+            },
+            j_mucho_doctor_house = {
+                name = "Doctor House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} {C:attention}Full House{}s",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}Oh I know that guy!{}",},
+				},
+            },
+            j_mucho_roofless_house = {
+                name = "Roofless House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult",
+					"{C:inactive,s:0.8}There is no place!{}",
+				},
+            },
+            j_mucho_houseless_roof = {
+                name = "Houseless Roof",
+                text = {
+					{"Do nothing only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home without a roof!{}",},
+				},
+            },
+            j_mucho_house_with_a_long_roof = {
+                name = "House with a Long Roof",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like home with an exceedingly long roof and no benefits of it!{}",
+				},
+            },
+            j_mucho_incredibly_small_house_with_a_long_roof = {
+                name = "Incredibly Small House with a Long Roof",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like a stupidly tiny home with an exceedingly long roof and no benefits of it!{}",
+				},
+            },
+            j_mucho_inverted_house = {
+                name = "Inverted House",
+                text = {
+					"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+                    "Hand counter {C:red}resets{} after each completion",
+					"{C:inactive,s:0.8}There is no place like home!{}",
+				},
+            },
+            j_mucho_the_house = {
+                name = "The House",
+                text = {
+					{"{X:dark_edition,C:white}^#1#{} Mult only after",
+					"playing {C:attention}#3#{} hands{}",
+					"{C:inactive}(Currently #2#/#3#){}",
+					"{C:inactive,s:0.8}There is no place like a Cryptid-Approved home!{}"},
+                    {"This Joker {C:attention}increases{} hand gain of",
+                    "{C:attention}all houses by #4#"}
+				},
             },
         },
         Planet = {
@@ -557,6 +819,14 @@ return {
                     '{s:3,f:mucho_utfont}"{s:0.8,f:mucho_utfont}WHO WOULD {C:inactive,s:1.1,f:mucho_utfont}[[Miss]]{f:mucho_utfont} SUC{s:1.2,f:mucho_utfont}H {C:chips,f:mucho_utfont}A [[Specil {s:1.3,C:money,f:mucho_utfont}Deal]]{}!?{s:3,f:mucho_utfont}"'},
                     {'{s:3.8,f:mucho_utfont}[[Hyperlink Blocked]]'}
                 }
+            },
+            c_mucho_smwgtc = {
+                name = "The Fool?",
+                text = {
+                    {'Enhances {C:attention}2{} selected',
+                    'cards into a {C:money}Smart Man',
+                    '{C:money}With Glasses Download Wallpaper Card',}
+                }
             }
         },
         Spectral = {
@@ -576,6 +846,35 @@ return {
                     "Card's {V:3}money{} {V:4, E:1}persists{} until the {V:2}game is closed{}",
                 }
             },
+            c_mucho_pipis = {
+                name = "{f:mucho_utfont}[[Pipis]]",
+                text = {
+                    {'Upon use, triggers a {C:attention}random',
+                    '{C:attention}effect{} from the list below'},
+                    {"{f:mucho_utfont}EFFECT [[One]]:",
+                    "Creates a copy of a random consumable"},
+                    {"{f:mucho_utfont}EFFECT [[Two]]:",
+                    "Grants between {C:money}$0{} and {C:money}$10"},
+                    {"{f:mucho_utfont}EFFECT [[Three]]:",
+                    "Has a {C:green,E:2}#1# in #2# chance{} to",
+                    "create a {V:1}Rarer than Rare{} tag"},
+                    {"{f:mucho_utfont}EFFECT [[Four]]:",
+                    "Has a {C:green,E:2}#1# in #3# chance{} to",
+                    "grant {C:attention}+1 {C:purple}card selection limit"},
+                    {"{f:mucho_utfont}EFFECT [[Five]]:",
+                    "Has a {C:green,E:2}#1# in #4# chance{} to",
+                    "create a {C:spectral}Balatrez MAX{} card"},
+                }
+            },
+            c_mucho_smwgsc = {
+                name = "Trance?",
+                text = {
+                    {'Add a {C:money}Smart Man',
+                    '{C:money}With Glasses Download Wallpaper',
+                    '{C:money}Seal{} to {C:attention}2 selected',
+                    'cards in hand'}
+                }
+            }
         },
         Blind = {
             bl_mucho_el_monstruo = {

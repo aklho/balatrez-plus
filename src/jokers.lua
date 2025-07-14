@@ -872,7 +872,7 @@ SMODS.Joker{
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    config = { extra = { realXmult = 4, Xmult = ''}},
+    config = { extra = { realXmult = 7, Xmult = ''}},
 
 	calculate = function(self, card, context)
 		-- Tests if context.joker_main == true.
@@ -884,7 +884,7 @@ SMODS.Joker{
 				-- This is a localize function. Localize looks through the localization files, and translates it. It ensures your mod is able to be translated. I've left it out in most cases for clarity reasons, but this one is required, because it has a variable.
 				-- This specifically looks in the localization table for the 'variable' category, specifically under 'v_dictionary' in 'localization/en-us.lua', and searches that table for 'a_mult', which is short for add mult.
 				-- In the localization file, a_mult = "+#1#". Like with loc_vars, the vars in this message variable replace the #1#.
-				extra = { message = "^4 Mult", color = G.C.DARK_EDITION}
+				extra = { message = "^7 Mult", colour = G.C.DARK_EDITION}
 				-- Without this, the mult will stil be added, but it'll just show as a blank red square that doesn't have any text.
 			}
 		end
@@ -961,32 +961,32 @@ SMODS.Joker {
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok1","Please watch this video in order to finance the scored hand.", 15),
                     config = {no_esc = true},
-                    pause = true
+                    pause = false
                 }
             elseif card.ability.extra.currentvideo == 2 then
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok2","Please watch this video in order to donate to a randomly-chosen Make-A-Wish child.", 15),
                     config = {no_esc = true},
-                    pause = true
+                    pause = false
                 }
             elseif card.ability.extra.currentvideo == 3 then
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok3","Please watch this video in order to keep Mr. Bones in his slumber.", 15),
                     config = {no_esc = true},
-                    pause = true
+                    pause = false
                 }
             elseif card.ability.extra.currentvideo == 4 then
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok4","Please watch this video in order to win.", 15),
                     config = {no_esc = true},
-                    pause = true
+                    pause = false
 
                 }
             elseif card.ability.extra.currentvideo == 5 then
                 G.FUNCS.overlay_menu{
                     definition = Create_UIBox_custom_video1("tiktok5","just watch the fucking video", 15),
                     config = {no_esc = true},
-                    pause = true
+                    pause = false
 
                 }
             end
@@ -1735,14 +1735,14 @@ SMODS.Joker {
         if context.joker_main then
             card.ability.extra.xmult = ((((G.GAME.blind.chips / 300) / #G.playing_cards) * (G.GAME.round * (1 + #G.GAME.used_vouchers)) - (#G.jokers.cards * #G.consumeables.cards)) / (G.GAME.dollars * G.GAME.probabilities.normal)) * (G.GAME.current_round.hands_left + (G.GAME.current_round.discards_left / 2)) - 0.9
             if next(SMODS.find_mod('Talisman')) then
-                if to_big(card.ability.extra.xmult) < to_big(0) then
+                if lenient_bignum(card.ability.extra.xmult) < lenient_bignum(0) then
                     return {
-                        Xmult_mod = to_big(0),
+                        Xmult_mod = lenient_bignum(0),
                         message = "The PS3 crashed!"
                     }
                 else
                     return {
-                        Xmult_mod = to_big(card.ability.extra.xmult),
+                        Xmult_mod = lenient_bignum(card.ability.extra.xmult),
                         message = "Grand Theft Auto V successfully launched!"
                     }
                 end
@@ -3189,7 +3189,7 @@ SMODS.Joker{
             SMODS.change_play_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
             SMODS.change_discard_limit(-card.ability.extra.extraselect or -self.config.extra.extraselect)
             play_sound("mucho_glassbreak")
-            card_eval_status_text(card,'jokers',nil,nil,nil,{message = "-1 card selection limit", color = G.C.PURPLE})
+            card_eval_status_text(card,'jokers',nil,nil,nil,{message = "-1 card selection limit", colour = G.C.PURPLE})
 
         end
     end
@@ -3287,7 +3287,7 @@ SMODS.Joker{
                 SMODS.change_play_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
                 SMODS.change_discard_limit(card.ability.extra.extraselect or self.config.extra.extraselect)
                 play_sound("mucho_levelup")
-                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "+1 card selection limit", color = G.C.PURPLE})
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "+1 card selection limit", colour = G.C.PURPLE})
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 3,
@@ -3298,7 +3298,7 @@ SMODS.Joker{
                 }))
             else
                 play_sound("mucho_soulhurt")
-                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "...Nothing happened!", color = G.C.PURPLE})
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "...Nothing happened!", colour = G.C.PURPLE})
             end
         end
     end
@@ -3333,7 +3333,7 @@ SMODS.Joker{
                 card.ability.extra.stockpiled = card.ability.extra.stockpiled + (hand_chips / 20)
                 hand_chips = lenient_bignum(hand_chips/50)
                 print("current hand chips: "..hand_chips)
-                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Divided chips by 50", color = G.C.CHIPS})
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Divided chips by 50", colour = G.C.CHIPS})
                 return {
                     message = "Stockpiled "..pre_stockpile.." Chips!"
                 }
@@ -3349,10 +3349,12 @@ SMODS.Joker{
             end
         else
             if context.final_scoring_step and G.GAME.current_round.hands_left > 0 then
-                local pre_stockpile = hand_chips
-                card.ability.extra.stockpiled = card.ability.extra.stockpiled + hand_chips
+               local pre_stockpile = hand_chips
+                card.ability.extra.stockpiled = card.ability.extra.stockpiled + (hand_chips / 20)
+                hand_chips = hand_chips/50
+                print("current hand chips: "..hand_chips)
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Divided chips by 50", colour = G.C.CHIPS})
                 return {
-                    chips = 1 - hand_chips,
                     message = "Stockpiled "..pre_stockpile.." Chips!"
                 }
             end
@@ -3379,7 +3381,7 @@ SMODS.Joker{
         } end,
     atlas = 'atlas4', pos = {x = 4, y = 0},
     rarity = 1,
-    cost = 5,
+    cost = 3,
     pools = {["BalatrezAddition"] = true},
 
 
@@ -3418,8 +3420,8 @@ SMODS.Joker{
             }
         } end,
     atlas = 'atlas4', pos = {x = 0, y = 1},
-    rarity = 1,
-    cost = 5,
+    rarity = 2,
+    cost = 6,
     pools = {["BalatrezAddition"] = true},
 
 
@@ -3500,7 +3502,53 @@ SMODS.Joker {
     end
 }
 
-MuchoNumberRank = 7
+SMODS.Joker{
+    key = "tagmaster",
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_tagmaster",
+            vars = { G.GAME.probabilities.normal, card.ability.extra.odds }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 2, y = 2},
+    rarity = 2,
+    cost = 7,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { odds = 6 }},
+
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + 1
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - 1
+    end,
+
+
+    calculate = function(self, card, context)
+        if context.reroll_shop and pseudorandom("randomtag?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    Mucho.add_random_tag()
+                    return true
+                end
+            }))
+            return {
+                extra = { message = "Tag created!", colour = G.C.FILTER}
+            }
+        end
+    end
+}
+
+
+--[[MuchoNumberRank = 7
 MuchoFaceRank = 13
 
  SMODS.Joker {
@@ -3532,7 +3580,7 @@ MuchoFaceRank = 13
             MuchoFaceRank = math.floor(pseudorandom("number_rank", 2, 13))
         end
     end
-}
+}]]--
 
 SMODS.Joker{
     key = "tutorialvideo",
@@ -3544,9 +3592,9 @@ SMODS.Joker{
         }
     end,
 
-    atlas = 'atlas4', pos = {x = 3, y = 1},
-    rarity = 2,
-    cost = 5,
+    atlas = 'atlas4', pos = {x = 3, y = 1}, soul_pos = {x = 5, y = 2},
+    rarity = "mucho_exceptional",
+    cost = 25,
     pools = {["BalatrezAddition"] = true},
     blueprint_compat = true,
     eternal_compat = true,
@@ -3580,11 +3628,236 @@ SMODS.Joker{
     end
 }
 
+SMODS.Joker{
+    key = "multspread",
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_multspread",
+            vars = { card.ability.extra.multper, card.ability.extra.exmult, colours = {HEX("a83283")} }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 4, y = 1}, soul_pos = {x = 5, y = 2},
+    rarity = "mucho_exceptional",
+    cost = 25,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { multper = 0.15, exmult = 1}},
+
+    calculate = function(self, card, context)
+        if next(SMODS.find_mod("Talisman")) then
+            if context.other_joker and (context.other_joker.config.center.rarity == "mucho_rarerthanrare" or context.other_joker.config.center.rarity == "Rarer than Rare") then
+               card.ability.extra.exmult = card.ability.extra.exmult + card.ability.extra.multper
+               card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Upgrade!", colour = G.C.GREEN})
+            end
+            if context.joker_main and lenient_bignum(card.ability.extra.exmult) > lenient_bignum(1) then
+                return {
+                    Xmult_mod = lenient_bignum(mult ^ (card.ability.extra.exmult-1)),
+				    extra = { message = "^"..card.ability.extra.exmult.." Mult", colour = G.C.DARK_EDITION}
+                }
+            end
+        else
+            if context.other_joker and (context.other_joker.config.center.rarity == "mucho_rarerthanrare" or context.other_joker.config.center.rarity == "Rarer than Rare") then
+               card.ability.extra.exmult = card.ability.extra.exmult + card.ability.extra.multper
+               card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Upgrade!", colour = G.C.GREEN})
+            end
+            if context.joker_main and card.ability.extra.exmult > 1 then
+                return {
+                    Xmult_mod = mult ^ (card.ability.extra.exmult-1),
+				    extra = { message = "^"..card.ability.extra.exmult.." Mult", colour = G.C.DARK_EDITION}
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "spamtonneo",
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 2] = G.P_CENTERS.c_mucho_pipis
+        return {
+            key = "j_mucho_spamtonneo",
+            vars = { 
+                card.ability.extra.multper,
+                card.ability.extra.exmult,
+                G.GAME.probabilities.normal,
+                card.ability.extra.odds,
+                colours = {} }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 4, y = 2}, soul_pos = {x = 5, y = 2},
+    rarity = "mucho_exceptional",
+    cost = 25,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = {multper = 0.08, exmult = 1, odds = 15}},
+
+    calculate = function(self, card, context)
+        if next(SMODS.find_mod("Talisman")) then
+            if context.hand_drawn or context.skip_blind or context.playing_card_added or context.reroll_shop or context.selling_card or context.buying_card or context.open_booster or context.pre_discard or context.remove_playing_cards or context.debuffed_hand and context.cardarea == G.play or context.end_of_round and context.cardarea == G.jokers or context.setting_blind or context.buying_card or context.ending_shop or context.hand_drawn or context.skip_blind then
+                if pseudorandom("negative pipis?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    SMODS.add_card{key = "c_mucho_pipis", edition = "e_negative"}
+                end
+                if G.consumeables.config.card_limit > #G.consumeables.cards then
+                    SMODS.add_card{key = "c_mucho_pipis"}
+                end
+            end
+            if context.joker_main and card.ability.extra.exmult > 1 then
+                return {
+                    Xmult_mod = lenient_bignum(mult ^ (card.ability.extra.exmult-1)),
+				    extra = { message = "^"..number_format(lenient_bignum(card.ability.extra.exmult)).." Mult", colour = G.C.DARK_EDITION}
+                }
+            end
+            if context.using_consumeable and context.consumeable.config.center.key == 'c_mucho_pipis' then
+                card.ability.extra.exmult = number_format(lenient_bignum(card.ability.extra.exmult)) + card.ability.extra.multper
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Upgrade!", colour = G.C.GREEN})
+            end
+
+        else
+            if context.hand_drawn or context.skip_blind or context.playing_card_added or context.reroll_shop or context.selling_card or context.buying_card or context.open_booster or context.pre_discard or context.remove_playing_cards or context.debuffed_hand and context.cardarea == G.play or context.end_of_round and context.cardarea == G.jokers or context.setting_blind or context.buying_card or context.ending_shop or context.hand_drawn or context.skip_blind then
+                if pseudorandom("negative pipis?") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    SMODS.add_card{key = "c_mucho_pipis", edition = "e_negative"}
+                end
+                if G.consumeables.config.card_limit > #G.consumeables.cards then
+                    SMODS.add_card{key = "c_mucho_pipis"}
+                end
+            end
+            if context.joker_main and card.ability.extra.exmult > 1 then
+                return {
+                    Xmult_mod = mult ^ (card.ability.extra.exmult-1),
+				    extra = { message = "^"..card.ability.extra.exmult.." Mult", colour = G.C.DARK_EDITION}
+                }
+            end
+            if context.using_consumeable and context.consumeable.config.center.key == 'c_mucho_pipis' then
+                card.ability.extra.exmult = card.ability.extra.exmult + card.ability.extra.multper
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Upgrade!", colour = G.C.GREEN})
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "djmustard",
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_djmustard",
+            vars = { 
+                card.ability.extra.multper,
+                card.ability.extra.odds2,
+                card.ability.extra.odds,
+                card.ability.extra.exmult,
+                colours = {} }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 0, y = 2}, soul_pos = {x = 5, y = 2},
+    rarity = "mucho_exceptional",
+    cost = 25,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = {exmult = 1, multper = 0.5, odds2 = 1, odds = 5}},
+
+    calculate = function(self, card, context)
+        if next(SMODS.find_mod("Talisman")) then
+            if context.other_joker and context.other_joker.config.center.key ~= "j_mucho_djmustard" and context.other_joker.debuff == false and context.other_joker.ability.verifiedmustard ~= true then
+                if pseudorandom("debuffdjmustard") < card.ability.extra.odds2 / card.ability.extra.odds then
+                    card.ability.extra.exmult = card.ability.extra.exmult + card.ability.extra.multper
+                    SMODS.debuff_card(context.other_joker, true, "source")
+                    card_eval_status_text(context.other_joker,'jokers',nil,nil,nil,{message = "Mustard!", colour = G.C.RED})
+                    card_eval_status_text(card,'jokers',nil,nil,nil,{message = "Upgrade!", colour = G.C.GREEN})
+                else
+                    card_eval_status_text(context.other_joker,'jokers',nil,nil,nil,{message = "Safe!", colour = G.C.BLUE})
+                end
+                context.other_joker.ability.verifiedmustard = true
+            end
+            if context.joker_main and lenient_bignum(card.ability.extra.exmult) > lenient_bignum(1) then
+                return {
+                    Xmult_mod = lenient_bignum(mult ^ (card.ability.extra.exmult-1)),
+				    extra = { message = "^"..number_format(lenient_bignum(card.ability.extra.exmult)).." Mult", colour = G.C.DARK_EDITION }
+                }
+            end
+        else
+        end
+    end
+}
+
+SMODS.Sound {
+    key = "snd_jackenstein",
+    path = "snd_jackenstein.ogg"
+}
+
+SMODS.Joker{
+    key = "jackenstein",
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            key = "j_mucho_jackenstein",
+            vars = { G.GAME.probabilities.normal, card.ability.extra.odds, card.ability.extra.multper, card.ability.extra.exmult }
+        }
+    end,
+
+    atlas = 'atlas4', pos = {x = 1, y = 2}, soul_pos = {x = 5, y = 2},
+    rarity = "mucho_exceptional",
+    cost = 25,
+    pools = {["BalatrezAddition"] = true},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { multper = 0.2, exmult = 1, odds = 160000}},
+
+    update = function(self, card, dt)
+        if next(SMODS.find_card("j_mucho_jackenstein")) then
+            if pseudorandom("YOUR TAKING TOO LONG") < G.GAME.probabilities.normal / card.ability.extra.odds then
+                card_eval_status_text(card,'jokers',nil,nil,nil,{message = "YOUR TAKING TOO LONG", colour = G.C.BLACK})
+                card.ability.extra.exmult = lenient_bignum(card.ability.extra.exmult) + lenient_bignum(card.ability.extra.multper)
+                play_sound("mucho_snd_jackenstein")
+            end
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if next(SMODS.find_mod("Talisman")) then
+            if context.joker_main then
+                return {
+                    xmult = lenient_bignum(mult ^ (card.ability.extra.exmult - 1)),
+                    extra = { message = "^"..lenient_bignum(card.ability.extra.exmult).." Mult", colour = G.C.DARK_EDITION }
+                }
+                
+            end
+        else
+            if context.joker_main then
+                return {
+                    xmult = mult ^ (card.ability.extra.exmult - 1),
+                    extra = { message = "^"..card.ability.extra.exmult.." Mult", colour = G.C.DARK_EDITION }
+                }
+                
+            end
+        end
+    end
+}
+
+-- TODO LIST:
 
 
 
-
--- functions to make time pass (mostly for animated atlases, thanks yahimod for the code!)
 
 function jokerExistsmucho(abilityname)
     local _check = false
@@ -3699,6 +3972,9 @@ function Game:update(dt)
             elseif ret >= 11 and ret <= 13 or next(SMODS.find_card("j_pareidolia")) then ret = MuchoFaceRank end
             return ret
         end
+    end
+    if G.GAME.muchohandgain == nil then
+        G.GAME.muchohandgain = 1
     end
 end
 
